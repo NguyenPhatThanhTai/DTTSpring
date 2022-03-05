@@ -19,9 +19,16 @@ public class Controller {
 	     return "/Client/index";
 	 }
 	 
-	 @RequestMapping({ "/deptList" })
-	 public String deptList(Model model) {
-//		 testDao.createTestData("1", "Dept Name", "Dept Location");
+	 @RequestMapping(value = "/deptList", method = RequestMethod.GET)
+	 public String deptListGet(Model model) {	
+	     List<Test> list = testDao.listTestData();
+	     model.addAttribute("test", list);
+	     return "/Admin/testList";
+	 }
+	 
+	 @RequestMapping(value = "/deptList", method = RequestMethod.POST)
+	 public String deptListPost(Model model, @RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("note") String note) {
+		 testDao.createTestData(id, name, note);
 	
 	     List<Test> list = testDao.listTestData();
 	     model.addAttribute("test", list);

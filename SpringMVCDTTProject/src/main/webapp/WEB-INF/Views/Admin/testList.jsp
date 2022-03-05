@@ -7,6 +7,15 @@
      <title>Department List</title>
  </head>
  <body>
+	<form action="deptList" method="post">
+	  <label for="fname">Id:</label>
+	  <input type="text" id="fname" name="id"><br><br>
+	  <label for="lname">Name:</label>
+	  <input type="text" id="lname" name="name"><br><br>
+	  	  <label for="lname">Note:</label>
+	  <input type="text" id="lname" name="note"><br><br>
+	  <input type="submit" value="Submit">
+	</form>
      <div align="center">
          <h1>Department List</h1>
          <table border="1">

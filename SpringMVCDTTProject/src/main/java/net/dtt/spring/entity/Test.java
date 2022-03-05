@@ -27,6 +27,10 @@ public class Test implements Serializable {
 		
 	}
 	
+	public Test(String Id) {
+		this.Id = Id;
+	}
+	
 	public Test(String Id, String Name, String Note) {
 		this.Id = Id;
 		this.Name = Name;
@@ -50,7 +54,7 @@ public class Test implements Serializable {
 		this.Id = id;
 	}
 
-	@Column(name = "Name", length = 200, nullable = false)
+	@Column(name = "Name", length = 200, nullable = true)
 	public String getName() {
 		return Name;
 	}
@@ -59,7 +63,7 @@ public class Test implements Serializable {
 		this.Name = name;
 	}
 	
-	@Column(name = "Note", length = 200, nullable = false)
+	@Column(name = "Note", length = 200, nullable = true)
 	public String getNote() {
 		return Note;
 	}

@@ -34,7 +34,7 @@ public class Two implements Serializable {
 		this.TwoId = twoId;
 	}
 
-	@Column(name = "Note", length = 200, nullable = false)
+	@Column(name = "Note", length = 200, nullable = true)
 	public String getNote() {
 		return Note;
 	}

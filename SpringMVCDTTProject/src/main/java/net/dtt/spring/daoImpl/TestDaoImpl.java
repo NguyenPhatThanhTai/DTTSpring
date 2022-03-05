@@ -33,12 +33,20 @@ public class TestDaoImpl implements TestDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		
 		//add
-//		Test test = new Test();
-//		test.setName("Taei");
-//		test.setNote("hello");
-//		test.setId("4");
+		Test test = new Test();
+		test.setName(name);
+		test.setNote(Note);
+		test.setId(id);
+		
+		session.persist(test);
+		
+//		Two two = new Two();
+//		two.setTwoId("2");
+//		two.settest(session.load(Test.class, "1"));
+//		two.setNote("Two2");
 //		
-//		session.persist(test);
+//		session.persist(two);
+		
 		
 		//delete
 //		Two two = session.load(Two.class, "123");//select * from DataTest where id= ?
