@@ -18,7 +18,7 @@
        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 
        <property name="prefix">
-           <value>/WEB-INF/pages/</value>
+           <value>/WEB-INF/Views/</value>
        </property>
 
        <property name="suffix">

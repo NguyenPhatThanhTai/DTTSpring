@@ -41,8 +41,8 @@ public class TestDaoImpl implements TestDao {
 //		session.persist(test);
 		
 		//delete
-//		Test test = session.load(Test.class, "4");//select * from Inf_Staff where staff_id= ?
-//		session.delete(test);
+//		Two two = session.load(Two.class, "123");//select * from DataTest where id= ?
+//		session.delete(two);
 		
 		//update
 //		session.update(new Test("1", "test update", "Oke"));

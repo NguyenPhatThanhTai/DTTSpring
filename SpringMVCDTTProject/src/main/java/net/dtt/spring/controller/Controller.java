@@ -14,17 +14,17 @@ public class Controller {
 	 @Autowired
 	 private TestDao testDao;
 
-	 @RequestMapping({ "/", "/home", "/index" })
+	 @RequestMapping({ "/", "/trang-chu", "/index" })
 	 public String home(Model model) {
-	     return "index";
+	     return "/Client/index";
 	 }
 	 
 	 @RequestMapping({ "/deptList" })
 	 public String deptList(Model model) {
-		 testDao.createTestData("1", "Dept Name", "Dept Location");
+//		 testDao.createTestData("1", "Dept Name", "Dept Location");
 	
 	     List<Test> list = testDao.listTestData();
 	     model.addAttribute("test", list);
-	     return "testList";
+	     return "/Admin/testList";
 	 }
 }

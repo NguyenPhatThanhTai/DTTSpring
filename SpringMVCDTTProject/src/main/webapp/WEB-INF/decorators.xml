@@ -1,0 +1,8 @@
+<decorators defaultdir="/WEB-INF/Views/Layouts">
+	<decorator name="Client" page="Client.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<decorator name="Admin" page="Admin.jsp">
+		<pattern>/quan-tri/*</pattern>
+	</decorator>
+</decorators>
