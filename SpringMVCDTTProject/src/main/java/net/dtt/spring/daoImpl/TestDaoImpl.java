@@ -24,7 +24,7 @@ public class TestDaoImpl implements TestDao {
 	public List<Test> listTestData() {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<Test> list = session.createQuery("From Test").list();
+		List<Test> list = session.createQuery("From Two").list();
 	    
 	    return list;
 	}

@@ -21,20 +21,12 @@
          <table border="1">
              <th>Dept No</th>
              <th>Dept Name</th>
-             <th>Location</th>
+             <th>Dept Name</th>
            
              <c:forEach var="item" items="${test}" varStatus="status">
              <tr>
                  <td>${item.id}</td>
-                 <td>${item.name}</td>
-                 <td>${item.note}</td>
-                 <c:forEach var="two" items="${item.two}" varStatus="status">
-		             <tr>
-                          	<td>${item.id}</td>
-                 			<td>${item.name}</td>
-		                 	<td>${two.note}</td>                         
-		             </tr>
-             	</c:forEach>                      
+                 <td>${item.name}</td>                   
              </tr>
              </c:forEach>
                        

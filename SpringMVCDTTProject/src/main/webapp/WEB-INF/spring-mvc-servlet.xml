@@ -26,5 +26,10 @@
        </property>
 
    </bean>
+   
+   <mvc:resources mapping="/resources/**" location="/Resource/"  
+	cache-period="31556926"/>
+
+    <mvc:annotation-driven />
 
 </beans>
