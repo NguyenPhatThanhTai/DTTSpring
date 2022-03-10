@@ -27,6 +27,7 @@
               <value>net.dtt.spring.Models.DAOModel.ManufacturersDaoModel</value>
               <value>net.dtt.spring.Models.DAOModel.OrdersDaoModel</value>
               <value>net.dtt.spring.Models.DAOModel.ProductDaoModel</value>
+              <value>net.dtt.spring.Models.DAOModel.ProductDetailDaoModel</value>
           </list>
       </property>
 

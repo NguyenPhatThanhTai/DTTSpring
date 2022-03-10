@@ -316,8 +316,8 @@
 	                <div class="col-3 col-md-6 col-sm-12">
 	                    <div class="product-card">
 	                        <div class="product-card-img">
-	                            <img src="${item.img}" alt="">
-	                            <img src="${item.img}" alt="">
+	                            <img src="${item.productDetail.img_Cover}" alt="">
+	                            <img src="${item.productDetail.img_Hover}" alt="">
 	                        </div>
 	                        <div class="product-card-info">
 	                            <div class="product-btn">
@@ -330,11 +330,11 @@
 	                                </button>
 	                            </div>
 	                            <div class="product-card-name">
-	                                ${item.name}
+	                                ${item.productDetail.name}
 	                            </div>
 	                            <div class="product-card-price">
-	                                <span><del>${item.price + (item.price)/2}</del></span>
-	                                <span class="curr-price">${item.price}</span>
+	                                <span><del>${item.productDetail.price + (item.productDetail.price)/2}</del></span>
+	                                <span class="curr-price">${item.productDetail.price}</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -382,8 +382,8 @@
 	                <div class="col-3 col-md-6 col-sm-12">
 	                    <div class="product-card">
 	                        <div class="product-card-img">
-	                            <img src="${item.img}" alt="">
-	                            <img src="${item.img}" alt="">
+	                            <img src="${item.product.img_Cover}" alt="">
+	                            <img src="${item.product.img_Hover}" alt="">
 	                        </div>
 	                        <div class="product-card-info">
 	                            <div class="product-btn">
@@ -396,11 +396,11 @@
 	                                </button>
 	                            </div>
 	                            <div class="product-card-name">
-	                                ${item.name}
+	                                ${item.product.name}
 	                            </div>
 	                            <div class="product-card-price">
-	                                <span><del>${item.price + (item.price)/2}</del></span>
-	                                <span class="curr-price">${item.price}</span>
+	                                <span><del>${item.product.price + (item.product.price)/2}</del></span>
+	                                <span class="curr-price">${item.product.price}</span>
 	                            </div>
 	                        </div>
 	                    </div>

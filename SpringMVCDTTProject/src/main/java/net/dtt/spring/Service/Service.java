@@ -18,12 +18,13 @@ public class Service implements IService {
 	
 	@Override
 	public List<ProductDaoModel> GetAllProduct() {
+		System.out.println("ok ben service all product");
 		return _dataAccess.GetAllProduct();
 	}
 
 	@Override
 	public List<CategoryDaoModel> getAllCategory() {
-		System.out.println("ok ben service");
+		System.out.println("ok ben service all category");
 		return _dataAccess.GetAllCategory();
 	}
 }
