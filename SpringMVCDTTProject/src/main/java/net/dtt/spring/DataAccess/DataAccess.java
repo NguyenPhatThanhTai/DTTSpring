@@ -25,15 +25,16 @@ public class DataAccess implements IDataAccess {
 		Session session = this.sessionFactory.getCurrentSession();
 
 		List<CategoryDaoModel> list = session.createQuery("From CategoryDaoModel").list();
+		
 	    
 	    return list;
 	}
 
 	@Override
-	public List<ProductDaoModel> GetAllProduct() {
+	public List<ProductDaoModel> GetProductByNumber(int amount) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").list();
+		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").setMaxResults(amount).list();
 	    
 	    return list;
 	}

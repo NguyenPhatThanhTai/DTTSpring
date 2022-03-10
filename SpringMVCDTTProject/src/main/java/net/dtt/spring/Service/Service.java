@@ -17,9 +17,15 @@ public class Service implements IService {
 	private IDataAccess _dataAccess;
 	
 	@Override
-	public List<ProductDaoModel> GetAllProduct() {
+	public List<ProductDaoModel> GetBestSellerProduct(int amount) {
 		System.out.println("ok ben service all product");
-		return _dataAccess.GetAllProduct();
+		return _dataAccess.GetProductByNumber(amount);
+	}
+	
+	@Override
+	public List<ProductDaoModel> GetRecommentProduct(int amount) {
+		System.out.println("ok ben service all product");
+		return _dataAccess.GetProductByNumber(amount);
 	}
 
 	@Override

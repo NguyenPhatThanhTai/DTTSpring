@@ -6,6 +6,7 @@ import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 
 public interface IService {
-	public List<ProductDaoModel> GetAllProduct();
+	public List<ProductDaoModel> GetBestSellerProduct(int amount);
+	public List<ProductDaoModel> GetRecommentProduct(int amount);
 	public List<CategoryDaoModel> getAllCategory();
 }

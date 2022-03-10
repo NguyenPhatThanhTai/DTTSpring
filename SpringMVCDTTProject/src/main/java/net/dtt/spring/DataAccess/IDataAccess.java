@@ -7,5 +7,5 @@ import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 
 public interface IDataAccess {
 	public List<CategoryDaoModel> GetAllCategory();
-	public List<ProductDaoModel> GetAllProduct();
+	public List<ProductDaoModel> GetProductByNumber(int amount);
 }
