@@ -6,7 +6,7 @@
 
 
 
- <bean id="IDataAccess" class="net.dtt.spring.DataAccess.DataAccess">
+ <bean id="IService" class="net.dtt.spring.DataAccess.DataAccess">
      <property name="sessionFactory" ref="mySessionFactory" />
  </bean>
 

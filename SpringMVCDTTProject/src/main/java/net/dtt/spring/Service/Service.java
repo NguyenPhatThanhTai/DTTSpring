@@ -8,19 +8,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.dtt.spring.DataAccess.DataAccess;
 import net.dtt.spring.DataAccess.IDataAccess;
+import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 
-@Transactional
+@org.springframework.stereotype.Service
 public class Service implements IService {
 	@Autowired
 	private IDataAccess _dataAccess;
-
-	public void setDataAccess(IDataAccess dataAccess) {
-	    this._dataAccess = dataAccess;
-	}
 	
 	@Override
 	public List<ProductDaoModel> GetAllProduct() {
 		return _dataAccess.GetAllProduct();
+	}
+
+	@Override
+	public List<CategoryDaoModel> getAllCategory() {
+		System.out.println("ok ben service");
+		return _dataAccess.GetAllCategory();
 	}
 }

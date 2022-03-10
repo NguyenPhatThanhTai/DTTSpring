@@ -20,17 +20,17 @@ import net.dtt.spring.entity.Test;
 @Controller
 public class HomeControllers {
 	@Autowired
-	private IDataAccess _dataAccess;
+	private IService _service;
 	
 	 @RequestMapping(value = "/", method = RequestMethod.GET)
 	 public String home(Model model) {
-		 var ListCategory = _dataAccess.GetAllCategory();
-		 var listProductRecomment = _dataAccess.GetAllProduct();
-		 var ListBestSellerProduct = _dataAccess.GetAllProduct();
+		var ListCategory = _service.getAllCategory();
+		 var listProductRecomment = _service.GetAllProduct();
+		 //var ListBestSellerProduct = _dataAccess.GetAllProduct();
 		 
 		 model.addAttribute("list_category", ListCategory);
 		 model.addAttribute("list_product_recomment", listProductRecomment);
-		 model.addAttribute("list_bestSeller_product", ListBestSellerProduct);
+		 //model.addAttribute("list_bestSeller_product", ListBestSellerProduct);
 		 
 	     return "/Client/HomePage";
 	 }
