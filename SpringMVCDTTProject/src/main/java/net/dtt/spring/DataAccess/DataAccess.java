@@ -38,4 +38,13 @@ public class DataAccess implements IDataAccess {
 	    
 	    return list;
 	}
+
+	@Override
+	public ProductDaoModel GetDetailProduct(int productId) {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		ProductDaoModel product = (ProductDaoModel) session.createQuery("From ProductDaoModel P WHERE P.id = " + productId).getSingleResult();
+	    
+	    return product;
+	}
 }

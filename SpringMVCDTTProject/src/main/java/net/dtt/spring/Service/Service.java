@@ -33,4 +33,9 @@ public class Service implements IService {
 		System.out.println("ok ben service all category");
 		return _dataAccess.GetAllCategory();
 	}
+
+	@Override
+	public ProductDaoModel GetDetailproduct(int productId) {
+		return _dataAccess.GetDetailProduct(productId);
+	}
 }

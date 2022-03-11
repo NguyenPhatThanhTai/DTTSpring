@@ -9,4 +9,5 @@ public interface IService {
 	public List<ProductDaoModel> GetBestSellerProduct(int amount);
 	public List<ProductDaoModel> GetRecommentProduct(int amount);
 	public List<CategoryDaoModel> getAllCategory();
+	public ProductDaoModel GetDetailproduct(int productId);
 }
