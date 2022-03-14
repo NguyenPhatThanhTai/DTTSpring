@@ -19,13 +19,13 @@ public class Service implements IService {
 	@Override
 	public List<ProductDaoModel> GetBestSellerProduct(int amount) {
 		System.out.println("ok ben service all product");
-		return _dataAccess.GetProductByNumber(amount);
+		return _dataAccess.GetProductByNumber(1, amount);
 	}
 	
 	@Override
 	public List<ProductDaoModel> GetRecommentProduct(int amount) {
 		System.out.println("ok ben service all product");
-		return _dataAccess.GetProductByNumber(amount);
+		return _dataAccess.GetProductByNumber(1, amount);
 	}
 
 	@Override
@@ -37,5 +37,15 @@ public class Service implements IService {
 	@Override
 	public ProductDaoModel GetDetailproduct(int productId) {
 		return _dataAccess.GetDetailProduct(productId);
+	}
+
+	@Override
+	public List<ProductDaoModel> GetAllProduct(int offset) {
+		return _dataAccess.GetProductByNumber(offset, 3);
+	}
+
+	@Override
+	public int CountProduct() {
+		return _dataAccess.CountProduct();
 	}
 }

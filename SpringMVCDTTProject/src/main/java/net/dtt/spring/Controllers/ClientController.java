@@ -35,4 +35,20 @@ public class ClientController {
 		 
 		 return "/Client/DetailProduct";
 	 }
+	 
+	 @RequestMapping(value = "/All-Products/{offset}", method = RequestMethod.GET)
+	 public String AllProductPage(Model model, @PathVariable(value="offset") int offset) {
+		 var CountProducts = _service.CountProduct();
+		 model.addAttribute("count_product", CountProducts);
+		 
+		 if(offset == 1) {}
+		 else {
+			 offset = offset * 2;
+		 }
+		 
+		 var AllProducts = _service.GetAllProduct(offset);
+		 model.addAttribute("all_product", AllProducts);
+		 
+		 return "/Client/AllProducts";
+	 }
 }

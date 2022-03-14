@@ -98,16 +98,7 @@
                     </button>
                     <div class="product-detail-description-content">
                         <p>
-                            Chi tiết bạn cung cấp cho sản phẩm ảnh hưởng đến cách sản phẩm hiển thị với khách hàng, giúp bạn dễ dàng sắp xếp sản phẩm hơn và giúp khách hàng tìm được sản phẩm. Bạn không cần cung cấp mọi chi tiết cho từng sản phẩm.
-                            Đối với sản phẩm không có mẫu mã, các mục Định giá, Hàng trong kho và Vận chuyển được hiển thị trên trang chi tiết sản phẩm. Nếu bạn thêm mẫu mã, những mục này sẽ không còn hiển thị trên trang chi tiết sản phẩm nữa. Để thay đổi chi tiết mẫu mã sản phẩm, hãy tham khảo phần Chỉnh sửa mẫu mã đối với sản phẩm hiện có.</p>
-                        <img src="<c:url value="/resources/IMG/JBL_Quantum_400_Product Image_Hero 02.png" />" alt="">
-                        <p>
-                            Chi tiết bạn cung cấp cho sản phẩm ảnh hưởng đến cách sản phẩm hiển thị với khách hàng, giúp bạn dễ dàng sắp xếp sản phẩm hơn và giúp khách hàng tìm được sản phẩm. Bạn không cần cung cấp mọi chi tiết cho từng sản phẩm.
-                            Đối với sản phẩm không có mẫu mã, các mục Định giá, Hàng trong kho và Vận chuyển được hiển thị trên trang chi tiết sản phẩm. Nếu bạn thêm mẫu mã, những mục này sẽ không còn hiển thị trên trang chi tiết sản phẩm nữa. Để thay đổi chi tiết mẫu mã sản phẩm, hãy tham khảo phần Chỉnh sửa mẫu mã đối với sản phẩm hiện có.</p>
-                        </p>
-                        <img src= "<c:url value="/resources/IMG/kisspng-beats-electronics-headphones-apple-beats-studio-red-headphones.png" />" alt="">
-                        <p>
-                            Sản phẩm phù hợp cho giới trẻ. Màu sắc cá tính, trẻ trung cùng với thiết kế đậm chất tươi mới. Khiến cho nhiều anh em phải ngước nhìn.
+							${product_detail.productDetail.description}
                         </p>
                     </div>
                 </div>
@@ -117,86 +108,26 @@
                     Nhận xét
                 </div>
                 <div>
-                    <div class="user-rate">
+                <c:forEach var="item" items="${product_detail.commentProduct}" varStatus="status">
+                	<div class="user-rate">
                         <div class="user-info">
                             <div class="user-avt">
                                 <img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">
                             </div>
                             <div class="user-name">
-                                <span class="name">Anh Da Den</span>
+                                <span class="name">${item.customer.name}</span>
                                 <span class="rating">
+                                <c:forEach begin="1" end="${item.start}" varStatus="loop">
                                     <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
+								</c:forEach>
                                 </span>
                             </div>
                         </div>
                         <div class="user-rate-content">
-                            Sản phẩm phù hợp cho giới trẻ. Màu sắc cá tính, trẻ trung cùng với thiết kế đậm chất tươi mới. Khiến cho nhiều anh em phải ngước nhìn.
+                            ${item.content}
                         </div>
                     </div>
-                    <div class="user-rate">
-                        <div class="user-info">
-                            <div class="user-avt">
-                                <img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">
-                            </div>
-                            <div class="user-name">
-                                <span class="name">Anh Da Den</span>
-                                <span class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="user-rate-content">
-                            Sản phẩm phù hợp cho giới trẻ. Màu sắc cá tính, trẻ trung cùng với thiết kế đậm chất tươi mới. Khiến cho nhiều anh em phải ngước nhìn.
-                        </div>
-                    </div>
-                    <div class="user-rate">
-                        <div class="user-info">
-                            <div class="user-avt">
-                                 <img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">
-                            </div>
-                            <div class="user-name">
-                                <span class="name">Anh Da Den</span>
-                                <span class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="user-rate-content">
-                            Sản phẩm phù hợp cho giới trẻ. Màu sắc cá tính, trẻ trung cùng với thiết kế đậm chất tươi mới. Khiến cho nhiều anh em phải ngước nhìn.
-                        </div>
-                    </div>
-                    <div class="user-rate">
-                        <div class="user-info">
-                            <div class="user-avt">
-                                 <img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">
-                            </div>
-                            <div class="user-name">
-                                <span class="name">Anh Da Den</span>
-                                <span class="rating">
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                    <i class='bx bxs-star'></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="user-rate-content">
-                            Sản phẩm phù hợp cho giới trẻ. Màu sắc cá tính, trẻ trung cùng với thiết kế đậm chất tươi mới. Khiến cho nhiều anh em phải ngước nhìn.
-                        </div>
-                    </div>
+                </c:forEach>
                     
                     <div class="box">
                         <ul class="pagination">

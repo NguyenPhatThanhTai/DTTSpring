@@ -31,10 +31,10 @@ public class DataAccess implements IDataAccess {
 	}
 
 	@Override
-	public List<ProductDaoModel> GetProductByNumber(int amount) {
+	public List<ProductDaoModel> GetProductByNumber(int offset, int amount) {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").setMaxResults(amount).list();
+		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").setFirstResult(offset - 1).setMaxResults(amount).list();
 	    
 	    return list;
 	}
@@ -46,5 +46,14 @@ public class DataAccess implements IDataAccess {
 		ProductDaoModel product = (ProductDaoModel) session.createQuery("From ProductDaoModel P WHERE P.id = " + productId).getSingleResult();
 	    
 	    return product;
+	}
+
+	@Override
+	public int CountProduct() {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").list();
+	    
+	    return list.size();
 	}
 }

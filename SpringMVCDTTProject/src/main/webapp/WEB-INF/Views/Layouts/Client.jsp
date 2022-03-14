@@ -229,7 +229,6 @@
         </div>
     </footer>
     <!-- end footer -->
-    
     <script src="<c:url value="/resources/JS/header.js" />"></script>
 </body>
 </html>

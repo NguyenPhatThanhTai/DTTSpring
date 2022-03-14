@@ -156,7 +156,6 @@
             <div class="row" id="latest-products">
             
             	<c:forEach var="item" items="${list_product_recomment}" varStatus="status">
-            	<a href="Detail-Product/${item.id}">
 	            		 <div class="col-3 col-md-6 col-sm-12">
 		                    <div class="product-card">
 		                        <div class="product-card-img">
@@ -165,7 +164,8 @@
 		                        </div>
 		                        <div class="product-card-info">
 		                            <div class="product-btn">
-		                                <button class="btn-flat btn-hover btn-shop-now">xem ngay</button>
+		                                <a href="Detail-Product/${item.id}"></a>
+		                                <button class="btn-flat btn-hover btn-shop-now"><a href="Detail-Product/${item.id}">xem ngay</a></button>
 		                                <button class="btn-flat btn-hover btn-cart-add">
 		                                    <i class='bx bxs-cart-add'></i>
 		                                </button>
@@ -183,11 +183,10 @@
 		                        </div>
 		                    </div>
 		                </div>
-            		</a>
 	             </c:forEach>
             </div>
             <div class="section-footer">
-                <a href="./products.html" class="btn-flat btn-hover">xem tất cả</a>
+                <a href="All-Products/1" class="btn-flat btn-hover">xem tất cả</a>
             </div>
         </div>
     </div>

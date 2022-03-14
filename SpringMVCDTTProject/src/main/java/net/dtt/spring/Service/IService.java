@@ -10,4 +10,6 @@ public interface IService {
 	public List<ProductDaoModel> GetRecommentProduct(int amount);
 	public List<CategoryDaoModel> getAllCategory();
 	public ProductDaoModel GetDetailproduct(int productId);
+	public List<ProductDaoModel> GetAllProduct(int offset);
+	public int CountProduct();
 }
