@@ -26,7 +26,6 @@ public class DataAccess implements IDataAccess {
 
 		List<CategoryDaoModel> list = session.createQuery("From CategoryDaoModel").list();
 		
-	    
 	    return list;
 	}
 
@@ -44,8 +43,8 @@ public class DataAccess implements IDataAccess {
 		Session session = this.sessionFactory.getCurrentSession();
 
 		ProductDaoModel product = (ProductDaoModel) session.createQuery("From ProductDaoModel P WHERE P.id = " + productId).getSingleResult();
-	    
-	    return product;
+		
+		return product;
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class DataAccess implements IDataAccess {
 		Session session = this.sessionFactory.getCurrentSession();
 
 		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").list();
-	    
+		
 	    return list.size();
 	}
 }

@@ -41,7 +41,7 @@ public class Service implements IService {
 
 	@Override
 	public List<ProductDaoModel> GetAllProduct(int offset) {
-		return _dataAccess.GetProductByNumber(offset, 3);
+		return _dataAccess.GetProductByNumber(offset, 10);
 	}
 
 	@Override

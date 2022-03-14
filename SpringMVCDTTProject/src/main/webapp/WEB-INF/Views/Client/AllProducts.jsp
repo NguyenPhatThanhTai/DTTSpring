@@ -298,7 +298,7 @@
 					                            </button>
 					                        </div>
 					                        <div class="product-card-name">
-					                            ${item.productDetail.name}
+					                            ${item.id}
 					                        </div>
 					                        <div class="product-card-price">
 					                            <span><del>${item.productDetail.price + (item.productDetail.price)/2}</del></span>
@@ -314,7 +314,7 @@
                             <ul class="pagination">
                                 <li><a href="#"><i class='bx bxs-chevron-left'></i></a></li>
                                 <c:forEach begin="1" end="${count_product}" varStatus="loop">
-                                    <li><a href="../${loop.index}">${loop.index}</a></li>
+                                    <li><a href="../All-Products/${loop.index}" class="${loop.index == current_page ? "active" : ""}">${loop.index}</a></li>
 								</c:forEach>
                                 <!-- <li><a href="#" class="active">1</a></li>
                                 <li><a href="#">2</a></li>
