@@ -1,12 +1,21 @@
 package net.dtt.spring.Controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.Service.IService;
 
 @Controller
@@ -36,24 +45,35 @@ public class ClientController {
 		 return "/Client/DetailProduct";
 	 }
 	 
-	 @RequestMapping(value = "/All-Products/{offset}", method = RequestMethod.GET)
-	 public String AllProductPage(Model model, @PathVariable(value="offset") int offset) {
+	 @RequestMapping(value = "/All-Products", method = RequestMethod.GET)
+	 public String AllProductPage(Model model, @RequestParam(value="offset") int offset, @RequestParam(value="cateid", required = false) String cateId) {
+		 
+		 //split page	 
 		 int total = 10;
 		 int current_page = offset;
-		 
-		 var CountProducts = _service.CountProduct();
-		 double CountProductsCalculator = CountProducts / total;
-		 CountProducts = (int) (CountProductsCalculator + 1);
 		 
 		 if(offset == 1) {}
 		 else {
 			 offset = (offset-1) * total + 1;
 		 }
 		 
-		 var AllProducts = _service.GetAllProduct(offset);
+		 //filter
+		 String[] splitIdCateFilter = null;
+		 if(cateId != null) {
+			 splitIdCateFilter = cateId.split("-");
+		 }
+		 var AllProducts = _service.GetAllProduct(offset, splitIdCateFilter);
+		 var AllCategory = _service.getAllCategory();
+		 
+		 var CountProducts = AllProducts.size();
+		 double CountProductsCalculator = CountProducts / total;
+		 CountProducts = (int) (CountProductsCalculator + 2);
+		 
 		 model.addAttribute("all_product", AllProducts);
 		 model.addAttribute("count_product", CountProducts);
 		 model.addAttribute("current_page", current_page);
+		 model.addAttribute("all_category", AllCategory);
+		 model.addAttribute("current_cateid", cateId);
 		 
 		 return "/Client/AllProducts";
 	 }

@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
     <!-- boxicons -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- logo -->
     <link rel="icon" href="images/logo.png">
     <!-- app css -->
@@ -92,51 +93,17 @@
                                 Nhãn hiệu
                             </span>
                             <ul class="filter-list">
+                            <c:forEach var="item" items="${all_category}" varStatus="status">
                                 <li>
                                     <div class="group-checkbox">
-                                        <input type="checkbox" id="remember1" checked="checked">
-                                        <label for="remember1">
-                                            Yame
+                                        <input type="checkbox" value="${item.id}" class="cateCheck" id="remember${item.id}" onclick="FilterCate(1)">
+                                        <label for="remember${item.id}">
+                                            ${item.name}
                                             <i class='bx bx-check'></i>
                                         </label>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="group-checkbox">
-                                        <input type="checkbox" id="remember2">
-                                        <label for="remember2">
-                                            S1mple
-                                            <i class='bx bx-check'></i>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="group-checkbox">
-                                        <input type="checkbox" id="remember3">
-                                        <label for="remember3">
-                                            Horizon
-                                            <i class='bx bx-check'></i>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="group-checkbox">
-                                        <input type="checkbox" id="remember4">
-                                        <label for="remember4">
-                                            Carol
-                                            <i class='bx bx-check'></i>
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="group-checkbox">
-                                        <input type="checkbox" id="remember5">
-                                        <label for="remember5">
-                                            Key
-                                            <i class='bx bx-check'></i>
-                                        </label>
-                                    </div>
-                                </li>
+                            </c:forEach>
                             </ul>
                         </div>
                         <div class="box">
@@ -312,16 +279,16 @@
                         </div>
                         <div class="box">
                             <ul class="pagination">
-                                <li><a href="#"><i class='bx bxs-chevron-left'></i></a></li>
+                                <li><a href="../All-Products?offset=${loop.index -1}"><i class='bx bxs-chevron-left'></i></a></li>
                                 <c:forEach begin="1" end="${count_product}" varStatus="loop">
-                                    <li><a href="../All-Products/${loop.index}" class="${loop.index == current_page ? "active" : ""}">${loop.index}</a></li>
+                                    <li><a href="../All-Products?offset=${loop.index}" class="${loop.index == current_page ? "active" : ""}">${loop.index}</a></li>
 								</c:forEach>
                                 <!-- <li><a href="#" class="active">1</a></li>
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">4</a></li>
                                 <li><a href="#">5</a></li> -->
-                                <li><a href="#"><i class='bx bxs-chevron-right'></i></a></li>
+                                <li><a href="../All-Products?offset=${loop.index + 1}"><i class='bx bxs-chevron-right'></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -330,6 +297,53 @@
         </div>
     </div>
     <!-- end products content -->
+       <script type="text/javascript">
+	    function FilterCate(id){
+	    	var checkedValue = "";
+		    const checkbox = document.getElementsByClassName("cateCheck");
+		    
+		    for(var i=0; i < checkbox.length; i++){
+		        if(checkbox[i].checked){
+		             checkedValue += checkbox[i].value + "-";
+		        }
+		  	}
+		    
+		    var urlAssign = "All-Products?offset=1";
+		    if(checkedValue != ""){
+		    	urlAssign += '&cateid= ' + checkedValue;
+		    }
+		    window.location.assign(urlAssign);
+	    }
+       
+       window.onload = function()
+       {
+		    var rememberFilter = '${current_cateid}';
+		    const listRememberFilter = rememberFilter.split("-");
+		    
+		    for(var i=0; i < listRememberFilter.length; i++){
+		    	var id = "remember" + listRememberFilter[i].replace(/\s+/g, '');
+		    	document.getElementById(id).checked = true;
+		    }
+       };
+
+    </script>
     <script src="<c:url value="/resources/JS/products.js" />"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

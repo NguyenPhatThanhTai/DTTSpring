@@ -10,6 +10,7 @@ import net.dtt.spring.DataAccess.DataAccess;
 import net.dtt.spring.DataAccess.IDataAccess;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
+import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
 @org.springframework.stereotype.Service
 public class Service implements IService {
@@ -19,13 +20,13 @@ public class Service implements IService {
 	@Override
 	public List<ProductDaoModel> GetBestSellerProduct(int amount) {
 		System.out.println("ok ben service all product");
-		return _dataAccess.GetProductByNumber(1, amount);
+		return _dataAccess.GetProductByNumber(1, amount, null);
 	}
 	
 	@Override
 	public List<ProductDaoModel> GetRecommentProduct(int amount) {
 		System.out.println("ok ben service all product");
-		return _dataAccess.GetProductByNumber(1, amount);
+		return _dataAccess.GetProductByNumber(1, amount, null);
 	}
 
 	@Override
@@ -40,8 +41,8 @@ public class Service implements IService {
 	}
 
 	@Override
-	public List<ProductDaoModel> GetAllProduct(int offset) {
-		return _dataAccess.GetProductByNumber(offset, 10);
+	public List<ProductDaoModel> GetAllProduct(int offset, String[] cateId) {
+		return _dataAccess.GetProductByNumber(offset, 10, cateId);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import net.dtt.spring.HibernateUntil.Until;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
+import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.entity.Test;
 
 @Transactional
@@ -30,10 +31,22 @@ public class DataAccess implements IDataAccess {
 	}
 
 	@Override
-	public List<ProductDaoModel> GetProductByNumber(int offset, int amount) {
+	public List<ProductDaoModel> GetProductByNumber(int offset, int amount, String[] cateId) {
 		Session session = this.sessionFactory.getCurrentSession();
+		
+		String query = "From ProductDaoModel P";
+		
+		if(cateId != null && cateId.length == 1) {
+			query += " WHERE P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+		}
+		else if(cateId != null && cateId.length > 1) {
+			query += " WHERE P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+			for (String idCate : cateId) {
+				query += " OR P.category.id = " + Integer.parseInt(idCate.replaceAll("\\s+",""));
+			}	
+		}
 
-		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").setFirstResult(offset - 1).setMaxResults(amount).list();
+		List<ProductDaoModel> list = session.createQuery(query).setFirstResult(offset - 1).setMaxResults(amount).list();
 	    
 	    return list;
 	}
