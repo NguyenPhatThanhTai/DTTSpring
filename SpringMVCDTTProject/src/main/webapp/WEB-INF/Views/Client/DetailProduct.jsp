@@ -17,6 +17,7 @@
     <!-- app css -->
     <link rel="stylesheet" href="<c:url value="/resources/CSS/grid.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/CSS/product-detail.css" />">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
     <!-- product-detail content -->
@@ -106,40 +107,30 @@
             <div class="box">
                 <div class="box-header">
                     Nhận xét
-                </div>
-                <div>
-                <c:forEach var="item" items="${product_detail.commentProduct}" varStatus="status">
-                	<div class="user-rate">
-                        <div class="user-info">
-                            <div class="user-avt">
-                                <img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">
-                            </div>
-                            <div class="user-name">
-                                <span class="name">${item.customer.name}</span>
-                                <span class="rating">
-                                <c:forEach begin="1" end="${item.start}" varStatus="loop">
-                                    <i class='bx bxs-star'></i>
-								</c:forEach>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="user-rate-content">
-                            ${item.content}
-                        </div>
-                    </div>
-                </c:forEach>
-                    
-                    <div class="box">
-                        <ul class="pagination">
-                            <li><a href="#"><i class='bx bxs-chevron-left'></i></a></li>
-                            <li><a href="#" class="active">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#"><i class='bx bxs-chevron-right'></i></a></li>
+                    <div class="star-rate-user">
+                        <ul class="rate-area">
+                            <input type="radio" class="getRating" id="5-star" name="rating" value="5" /><label for="5-star" title="Amazing">5 stars</label>
+                            <input type="radio" class="getRating" id="4-star" name="rating" value="4" /><label for="4-star" title="Good">4 stars</label>
+                            <input type="radio" class="getRating" id="3-star" name="rating" value="3" /><label for="3-star" title="Average">3 stars</label>
+                            <input type="radio" class="getRating" id="2-star" name="rating" value="2" /><label for="2-star" title="Not Good">2 stars</label>
+                            <input type="radio" class="getRating" id="1-star" name="rating" value="1" /><label for="1-star" title="Bad">1 star</label>
                         </ul>
-                    </div>
+                   		<input type="hidden" id="number-of-star">
+                   	</div>
+                </div>
+                <!-- comment box -->
+                <div class="comment-box">
+                    <img class="rounded-circle" src="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" width="50">
+                    <textarea id="comment-input" class="comment-input"></textarea>
+                </div>
+                <div class="btn-comment">
+                    <button id="sentComment" class="btn-postcmt" type="button">Đăng bình luận</button>
+                    <button id="unSent" class="btn-cancel" type="button">Hủy</button>
+                </div>
+                <!-- end comment box -->
+                
+                <!-- load all comment -->
+               	<div id="loadComment"></div>           
                 </div>
             </div>
             <div class="box">
@@ -151,5 +142,78 @@
         </div>
     </div>
     <!-- end product-detail content -->
+    <script type="text/javascript">
+	    $(document).ready(function() {
+	    	getAllComment();
+	    	
+	        $(".getRating").on("click", function(){
+	            $("#number-of-star").val($(this).val());
+	        })
+	        
+	        $("#sentComment").on("click", function(){
+	        	alert($("#comment-input").val());
+		    	$.ajax({
+		    		  type: 'POST',
+		    		  contentType : 'application/json; charset=utf-8',
+		    		  dataType : 'json',
+		    		  data: JSON.stringify({ 
+	    		        "prodId": '${product_id}', 
+	    		        "content": $("#comment-input").val(),
+	    		        "start": $("#number-of-star").val()
+	    		      }),
+		    		  url: '../sendComment',
+		    		  complete: function (data) {
+		    			  data = JSON.parse(data.responseText);
+		    			  
+		    			  if(data.IsSuccess){
+		    				  getAllComment();
+		    			  }
+		    			  else{
+		    				  alert("Gửi bình luận thất bại!")
+		    			  }
+		    		  }
+		    	});	
+	        })
+	    	
+	    	function getAllComment(){
+        		$("#loadComment").html("");
+		    	$.ajax({
+		    		  type: 'GET',
+		    		  dataType:"jsonp",
+		    		  url: '../viewCommentJson?prodId=' + '${product_id}',
+		    		  complete: function (data) {
+		    			  data = JSON.parse(data.responseText);
+		    			  data.forEach(function(item){
+		    				  
+		    				  var startNumberRate = '';
+		    				  
+		    				  for(var i = 0; i < item.start; i++){
+		    					  startNumberRate += '<i class="bx bxs-star"></i>';
+		    				  }
+		    				  
+			    		    	var cmtTemplate = 
+			    		    		'<div class="user-rate">' +
+		                        		'<div class="user-info">' +
+		                            		'<div class="user-avt">' +
+		                                		'<img src="<c:url value="/resources/IMG/223072445_1268702413600772_1982050020744284137_n.jpg" />" alt="">' +
+		                            		'</div>' + 
+		                            		'<div class="user-name">' + 
+		                                		'<span class="name">'+item.name+'</span>' + 
+		                                		'<span class="rating">' + 
+		                                			startNumberRate + 
+		                                		'</span>' +
+		                            		'</div>' +
+		                            	'</div>' +
+		                        		'<div class="user-rate-content">' +
+		                            		item.content +
+		                        		'</div>' + 
+	                        		'</div>';
+			    		    	$("#loadComment:last").append(cmtTemplate);
+		    			  })
+		    		  }
+		    	});	
+	    	}
+	    });
+    </script>
 </body>
 </html>

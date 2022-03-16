@@ -1,5 +1,7 @@
 package net.dtt.spring.DataAccess;
 
+
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.dtt.spring.HibernateUntil.Until;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
+import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
+import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.entity.Test;
@@ -67,5 +71,37 @@ public class DataAccess implements IDataAccess {
 		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel").list();
 		
 	    return list.size();
+	}
+
+	@Override
+	public List<CommentProductDaoModel> GetCommentOfProduct(int productId) {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		List<CommentProductDaoModel> list = session.createQuery("From CommentProductDaoModel C WHERE C.product.id = " + productId).list();
+		
+	    return list;
+	}
+
+	@Override
+	public boolean addComment(int id, String content, Date date, int star, int prodId, int cusId) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			System.out.println("================== " + date);
+			
+			CommentProductDaoModel cmt = new CommentProductDaoModel();
+			cmt.setId(id);
+			cmt.setStart(star);
+			cmt.setContent(content);
+			cmt.setTime(date);
+			cmt.setProduct(session.load(ProductDaoModel.class, prodId));
+			cmt.setCustomer(session.load(CustomerDaoModel.class, 1));
+			
+			session.persist(cmt);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
 	}
 }

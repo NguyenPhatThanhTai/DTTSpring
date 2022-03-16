@@ -966,6 +966,114 @@ footer ul li {
     line-height: 25px;
 }
 
+/* css-comment */
+
+    .comment-box{
+        display: flex;
+    }
+
+    .comment-input {
+        width: 100%;
+        resize: none;
+        font-size: 18px;
+        padding: 10px;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .comment-box img {
+        border-radius: 100%;
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+    }
+    
+    .btn-comment {
+        width: 100%;
+        text-align: right;
+    }
+
+    .btn-comment .btn-postcmt {
+        background-color: #6cacd6;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .btn-comment .btn-cancel {
+        background-color: #fff;
+        color: #6cacd6;
+        border: 1px solid #6cacd6;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+
+    .btn-comment .btn-postcmt:hover {
+        background-color: #009E0F;
+        color: #fff;
+    }
+
+    .btn-comment .btn-cancel:hover {
+        background-color: #DA2128;
+        color: #fff;
+    }
+
+
+/* end css-comment */
+
+/* css star rate */
+    .star-rate-user {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    
+    .rate-area {
+        float: left;
+        border-style: none;
+    }
+
+    .rate-area:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+        clip: rect(0, 0, 0, 0);
+    }
+
+    .rate-area:not(:checked) > label {
+        float: right;
+        width: 0.8em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 180%;
+        color: lightgrey;
+    }
+
+    .rate-area:not(:checked) > label:before {
+        content: "★";
+    }
+
+    .rate-area > input:checked ~ label {
+        color: gold;
+    }
+
+    .rate-area:not(:checked) > label:hover,
+    .rate-area:not(:checked) > label:hover ~ label {
+        color: gold;
+    }
+
+    .rate-area > input:checked + label:hover,
+    .rate-area > input:checked + label:hover ~ label,
+    .rate-area > input:checked ~ label:hover,
+    .rate-area > input:checked ~ label:hover ~ label,
+    .rate-area > label:hover ~ input:checked ~ label {
+        color: gold;
+    }
+/* end css star rate */
+
 /* responsive */
 
 @media only screen and (max-width: 1280px) {

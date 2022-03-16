@@ -9,13 +9,18 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
+import net.dtt.spring.Models.ViewModels.CommentViewModel;
+import net.dtt.spring.Models.ViewModels.ResponseModel;
+import net.dtt.spring.Models.ViewModels.SendCommentRequestModel;
 import net.dtt.spring.Service.IService;
 
 @Controller
@@ -41,6 +46,7 @@ public class ClientController {
 		 var productDetail = _service.GetDetailproduct(productId);
 		 
 		 model.addAttribute("product_detail", productDetail);
+		 model.addAttribute("product_id", productId);
 		 
 		 return "/Client/DetailProduct";
 	 }
@@ -76,5 +82,28 @@ public class ClientController {
 		 model.addAttribute("current_cateid", cateId);
 		 
 		 return "/Client/AllProducts";
+	 }
+	 
+	 @RequestMapping(value = "/viewCommentJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody List<CommentViewModel> getCommentJson(@RequestParam(value="prodId") int prodId) {
+		 var listComment = new ArrayList<CommentViewModel>();
+		 var cmtService = _service.GetCommentOfProduct(prodId);
+		 
+		 for (CommentProductDaoModel cmt : cmtService) {
+			listComment.add(new CommentViewModel(cmt.getId(), cmt.getContent(), cmt.getTime(), cmt.getStart(), cmt.getCustomer().getName(), "https://ava"));
+		 }
+		 
+	     return listComment;
+	 }
+	 
+	 @RequestMapping(value = "/sendComment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseModel sendComment(@RequestBody SendCommentRequestModel cmt) {
+		 
+		 if(_service.sentComment(cmt.getContent(), Integer.parseInt(cmt.getStart()), Integer.parseInt(cmt.getProdId()), 1)) {
+			 return new ResponseModel(200, "Success", true);
+		 }
+		 else {
+			 return new ResponseModel(400, "Failed", false);
+		 }
 	 }
 }
