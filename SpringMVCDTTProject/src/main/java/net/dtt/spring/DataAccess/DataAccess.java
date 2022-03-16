@@ -84,10 +84,8 @@ public class DataAccess implements IDataAccess {
 
 	@Override
 	public boolean addComment(int id, String content, Date date, int star, int prodId, int cusId) {
-//		try {
+		try {
 			Session session = this.sessionFactory.getCurrentSession();
-			
-			System.out.println("================== " + date);
 			
 			CommentProductDaoModel cmt = new CommentProductDaoModel();
 			cmt.setId(id);
@@ -100,8 +98,8 @@ public class DataAccess implements IDataAccess {
 			session.persist(cmt);
 			
 			return true;
-//		}catch (Exception e) {
-//			return false;
-//		}
+		}catch (Exception e) {
+			return false;
+		}
 	}
 }

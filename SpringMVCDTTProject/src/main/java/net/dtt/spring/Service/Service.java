@@ -65,22 +65,24 @@ public class Service implements IService {
 
 	@Override
 	public boolean sentComment(String content, int star, int prodId, int cusId) {
-        try {
-			Calendar calendar = Calendar.getInstance();
-			int dayOfWeek = calendar.get(Calendar.DAY_OF_MONTH);
-			int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
-			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-	
-			Date parseDate = dateFormat.parse(dateFormat.format(date));
-	
-			
-			return _dataAccess.addComment(id, content, parseDate, star, prodId, cusId);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+
+			try {
+				Calendar calendar = Calendar.getInstance();
+				int dayOfWeek = calendar.get(Calendar.DAY_OF_MONTH);
+				int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+				
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+		
+				Date parseDate;
+				
+				parseDate = dateFormat.parse(dateFormat.format(date));
+				
+				return _dataAccess.addComment(id, content, parseDate, star, prodId, cusId);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
 	}
 }

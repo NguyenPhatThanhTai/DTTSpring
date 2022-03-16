@@ -165,7 +165,7 @@
 		    		  complete: function (data) {
 		    			  data = JSON.parse(data.responseText);
 		    			  
-		    			  if(data.IsSuccess){
+		    			  if(data.isSuccess){
 		    				  getAllComment();
 		    			  }
 		    			  else{
