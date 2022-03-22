@@ -18,6 +18,7 @@
     <!-- css -->
     <link rel="stylesheet" href="<c:url value="/resources/CSS/app.css" />">
     <link rel="stylesheet" href="<c:url value="/resources/CSS/grid.css" />">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <!-- hero section -->
@@ -167,7 +168,7 @@
 		                                <a href="Detail-Product/${item.id}"></a>
 		                                <button class="btn-flat btn-hover btn-shop-now"><a href="Detail-Product/${item.id}">xem ngay</a></button>
 		                                <button class="btn-flat btn-hover btn-cart-add">
-		                                    <i class='bx bxs-cart-add'></i>
+		                                    <a onclick="addToCart(${item.id}, ${item.productDetail.price }, '${item.productDetail.img_Cover}')"><i class='bx bxs-cart-add'></i></a>
 		                                </button>
 		                                <button class="btn-flat btn-hover btn-cart-add">
 		                                    <i class='bx bxs-heart'></i>
@@ -301,7 +302,47 @@
 
 
     <!-- app js -->
+    <script>
+		function addToCart(ProductId, Price, Img){
+			$.ajax({
+				  type: 'POST',
+				  contentType : 'application/json; charset=utf-8',
+				  dataType : 'json',
+				  data: JSON.stringify({ 
+			        "productId": ProductId, 
+			        "number": 1,
+			        "action": 0,
+			        "price": Price,
+			        "image": Img
+			      }),
+				  url: 'addToCartJson',
+				  complete: function (data) {
+					  data = JSON.parse(data.responseText);
+					  
+					  if(data.isSuccess){
+						 alert("Đã thêm vào giỏ hàng tạm thời!");
+					  }
+					  else{
+						  alert("Thêm vào giỏ hàng thất bại!");
+					  }
+				  }
+			});	
+		}
+</script>
     <script src="<c:url value="/resources/JS/app.js" />"></script>
     <script src="<c:url value="/resources/JS/index.js" />"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

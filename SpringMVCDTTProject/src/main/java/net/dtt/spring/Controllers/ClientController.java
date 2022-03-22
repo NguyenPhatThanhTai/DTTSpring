@@ -2,7 +2,11 @@ package net.dtt.spring.Controllers;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
+import net.dtt.spring.Models.ViewModels.AddToCardRequestModel;
 import net.dtt.spring.Models.ViewModels.CommentViewModel;
 import net.dtt.spring.Models.ViewModels.ResponseModel;
 import net.dtt.spring.Models.ViewModels.SendCommentRequestModel;
@@ -107,4 +112,74 @@ public class ClientController {
 			 return new ResponseModel(400, "Failed", false);
 		 }
 	 }
+	 
+	 @RequestMapping(value = "/addToCartJson", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ResponseModel addToCard(@RequestBody AddToCardRequestModel cart, HttpServletRequest request) {
+		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>) request.getSession().getAttribute("cart");
+		 boolean isDefined = false;
+		 
+		 if(cartInfo != null && cartInfo.size() > 0) {
+			 
+			 for(int i = 0; i < cartInfo.size(); i++) {
+				 System.out.println("=========" + cart.getProductId() + " VS " + cartInfo.get(i).getProductId());
+				 if(cartInfo.get(i).getProductId() == cart.getProductId()) {
+					 isDefined = true;
+					if (cartInfo.get(i).getAction() == 0) {
+						cartInfo.get(i).setNumber(cartInfo.get(i).getNumber() + 1 );
+						System.out.println("================== 1 + || " + cartInfo.get(i).getNumber());
+					}
+					else {
+						cartInfo.get(i).setNumber(cartInfo.get(i).getNumber() - 1 );
+						if(cartInfo.get(i).getNumber() == 0) {
+							cartInfo.remove(cartInfo.get(i));
+							System.out.println("================== 2");
+						}
+					}
+				 }
+			 }
+			 
+			 if(!isDefined) {
+				 System.out.println("============== 3" );
+				 cartInfo.add(cart);
+			 }
+		 }
+		 else {
+			 System.out.println("================== 4");
+			 cartInfo = new ArrayList<AddToCardRequestModel>();
+			 cartInfo.add(cart);
+		 }
+		 
+		 request.getSession().setAttribute("cart", cartInfo);
+		 
+		 return new ResponseModel(200, "Success", true);
+	 }
+	 
+	 @RequestMapping(value = "/cart", method = RequestMethod.GET)
+	 public String CartPage(Model model, HttpSession session) {
+		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
+		 
+		 model.addAttribute("list_cart", cartInfo);
+		 
+		 return "/Client/Cart";
+	 }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
