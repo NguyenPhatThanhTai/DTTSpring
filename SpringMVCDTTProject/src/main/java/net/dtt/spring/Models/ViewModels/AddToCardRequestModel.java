@@ -6,18 +6,20 @@ public class AddToCardRequestModel {
 	private int Action;
 	private float Price;
 	private String Image;
+	private String Name;
 	
 	public AddToCardRequestModel() {
-
+		super();
 	}
 
-	public AddToCardRequestModel(int productId, int number, int action, float price, String image) {
+	public AddToCardRequestModel(int productId, int number, int action, float price, String image, String name) {
 		super();
 		ProductId = productId;
 		Number = number;
 		Action = action;
 		Price = price;
 		Image = image;
+		Name = name;
 	}
 
 	public int getProductId() {
@@ -58,6 +60,14 @@ public class AddToCardRequestModel {
 
 	public void setImage(String image) {
 		Image = image;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
 	}
 	
 }

@@ -168,7 +168,7 @@
 		                                <a href="Detail-Product/${item.id}"></a>
 		                                <button class="btn-flat btn-hover btn-shop-now"><a href="Detail-Product/${item.id}">xem ngay</a></button>
 		                                <button class="btn-flat btn-hover btn-cart-add">
-		                                    <a onclick="addToCart(${item.id}, ${item.productDetail.price }, '${item.productDetail.img_Cover}')"><i class='bx bxs-cart-add'></i></a>
+		                                    <a onclick="addToCart(${item.id}, ${item.productDetail.price }, '${item.productDetail.img_Cover}', '${item.productDetail.name}')"><i class='bx bxs-cart-add'></i></a>
 		                                </button>
 		                                <button class="btn-flat btn-hover btn-cart-add">
 		                                    <i class='bx bxs-heart'></i>
@@ -303,7 +303,7 @@
 
     <!-- app js -->
     <script>
-		function addToCart(ProductId, Price, Img){
+		function addToCart(ProductId, Price, Img, Name){
 			$.ajax({
 				  type: 'POST',
 				  contentType : 'application/json; charset=utf-8',
@@ -313,7 +313,8 @@
 			        "number": 1,
 			        "action": 0,
 			        "price": Price,
-			        "image": Img
+			        "image": Img,
+			        "name": Name
 			      }),
 				  url: 'addToCartJson',
 				  complete: function (data) {
@@ -328,7 +329,7 @@
 				  }
 			});	
 		}
-</script>
+	</script>
     <script src="<c:url value="/resources/JS/app.js" />"></script>
     <script src="<c:url value="/resources/JS/index.js" />"></script>
 </body>

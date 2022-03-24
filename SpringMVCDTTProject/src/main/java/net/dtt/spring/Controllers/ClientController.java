@@ -124,7 +124,8 @@ public class ClientController {
 				 System.out.println("=========" + cart.getProductId() + " VS " + cartInfo.get(i).getProductId());
 				 if(cartInfo.get(i).getProductId() == cart.getProductId()) {
 					 isDefined = true;
-					if (cartInfo.get(i).getAction() == 0) {
+					if (cart.getAction() == 0) {
+						System.out.println("================== " + cartInfo.get(i).getAction());
 						cartInfo.get(i).setNumber(cartInfo.get(i).getNumber() + 1 );
 						System.out.println("================== 1 + || " + cartInfo.get(i).getNumber());
 					}
@@ -161,6 +162,15 @@ public class ClientController {
 		 model.addAttribute("list_cart", cartInfo);
 		 
 		 return "/Client/Cart";
+	 }
+	 
+	 @RequestMapping(value = "/order", method = RequestMethod.GET)
+	 public String OrderPage(Model model, HttpSession session) {
+		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
+		 
+		 model.addAttribute("list_cart", cartInfo);
+		 
+		 return "/Client/order";
 	 }
 }
 

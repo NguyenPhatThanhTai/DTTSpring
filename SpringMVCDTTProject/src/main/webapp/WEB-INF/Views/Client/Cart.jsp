@@ -34,6 +34,7 @@
 		                            <h3>Số lượng</h3>
 		                            <button class="btn-minus btn-hover"><span>-</span></button>
 		                            <input id="ascending" type="number" value="${item.number}">
+		                            <input id="productId" type="hidden" value="${item.productId}">
 		                            <button class="btn-plus btn-hover"><span>+</span></button>
 		                            <h3 class="text-all-price">Tổng tiền: <span class="bg-color-price"><input class="price" type="number" value="${(item.price) * (item.number)}"></span></h3>
 		                            <input class="hiddenprice" type="hidden" value="300000">
@@ -55,19 +56,26 @@
         <div class="row">
             <div class="col-12 col-md-12 col-sm-12">
                 <div class="text-price">
-                    <h3>Thành tiền: <span>1.000.000 VND</span></h3>
+                    <h3>Tổng tiền <span id="totalPrice">0 VND</span></h3>
                     <button class="btn-flat btn-hover complete-cart"><span>Đặt hàng</span></button>
                 </div>
             </div>
         </div>
     </div>
-</body>
-</html>
-
+    
+    
 <script>
     $(document).ready(function() {
+    	calcuTotalPrice();
+    	
         $('.btn-minus').click(function() {
             var $input = $(this).parent().find('#ascending');
+            
+            if(parseInt($input.val()) > 1){
+            	alert(parseInt($input.val()));
+            	minus(parseInt($(this).parent().find('#productId').val()));
+            }
+            
             var count = parseInt($input.val()) - 1;
             count = count < 1 ? 1 : count;
             $input.val(count);
@@ -76,6 +84,8 @@
             var totalprice = parseInt(price_all_price.val())-parseInt($(this).parent().find('.hiddenprice').val());
             price_all_price.val(totalprice < parseInt($(this).parent().find('.hiddenprice').val()) ? parseInt($(this).parent().find('.hiddenprice').val()) : totalprice);
             price_all_price.change();
+            
+            calcuTotalPrice();
             return false;
         });
         $('.btn-plus').click(function() {
@@ -86,7 +96,65 @@
             var totalprice = parseInt(price_all_price.val())+parseInt($(this).parent().find('.hiddenprice').val());
             price_all_price.val(totalprice < parseInt($(this).parent().find('.hiddenprice').val()) ? parseInt($(this).parent().find('.hiddenprice').val()) : totalprice);
             price_all_price.change();
+            plusNumber(parseInt($(this).parent().find('#productId').val()));
+            
+            calcuTotalPrice();
             return false;
-    });
+    	});
+        
+        function calcuTotalPrice(){
+        	var totalPrice = 0;
+        	$('.price').each(function() {
+        		totalPrice += Number($(this).val())
+        		console.log("======= " + totalPrice);
+        	});
+        	
+        	$("#totalPrice").html(String(totalPrice) + " VND");
+        }
+        
+		function plusNumber(ProductId){
+			$.ajax({
+				  type: 'POST',
+				  contentType : 'application/json; charset=utf-8',
+				  dataType : 'json',
+				  data: JSON.stringify({ 
+			        "productId": ProductId, 
+			        "number": null,
+			        "action": 0,
+			        "price": null,
+			        "image": null,
+			        "name": null
+			      }),
+				  url: 'addToCartJson',
+				  complete: function (data) {
+					  data = JSON.parse(data.responseText);
+					 	
+				  }
+			});	
+		}
+		
+		function minus(ProductId){
+			$.ajax({
+				  type: 'POST',
+				  contentType : 'application/json; charset=utf-8',
+				  dataType : 'json',
+				  data: JSON.stringify({ 
+			        "productId": ProductId, 
+			        "number": null,
+			        "action": 1,
+			        "price": null,
+			        "image": null,
+			        "name": null
+			      }),
+				  url: 'addToCartJson',
+				  complete: function (data) {
+					  data = JSON.parse(data.responseText);
+					  
+
+				  }
+			});	
+		}
 });
 </script>
+</body>
+</html>
