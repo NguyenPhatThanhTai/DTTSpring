@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,8 @@ import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.Models.ViewModels.AddToCardRequestModel;
 import net.dtt.spring.Models.ViewModels.CommentViewModel;
+import net.dtt.spring.Models.ViewModels.LoginRequestModel;
+import net.dtt.spring.Models.ViewModels.RegisterRequestModel;
 import net.dtt.spring.Models.ViewModels.ResponseModel;
 import net.dtt.spring.Models.ViewModels.SendCommentRequestModel;
 import net.dtt.spring.Service.IService;
@@ -171,6 +174,46 @@ public class ClientController {
 		 model.addAttribute("list_cart", cartInfo);
 		 
 		 return "/Client/order";
+	 }
+	 
+	 @RequestMapping(value = "/Login", method = RequestMethod.GET)
+	 public String LoginPageGet(Model model, HttpServletRequest request) {
+		 var userInfo = request.getSession().getAttribute("user");
+		 if(userInfo != null) {
+			 request.getSession().removeAttribute("user");
+		 }
+		 
+		 return "/Client/Login";
+	 }
+	 
+	 @RequestMapping(value = "/Login", method = RequestMethod.POST)
+	 public String LoginPagePost(Model model, HttpServletRequest request, @ModelAttribute("LoginRequest")LoginRequestModel user) {
+		 if(_service.CheckLogin(user.getEmail(), user.getPassword())){
+			 return "/Client/HomePage";
+		 }
+		 
+		 model.addAttribute("alert", "Đăng nhập thất bại!!!");
+		 return "/Client/Login";
+	 }
+	 
+	 @RequestMapping(value = "/Register", method = RequestMethod.GET)
+	 public String RegisterPageGet(Model model, HttpServletRequest request) {
+		 var userInfo = request.getSession().getAttribute("user");
+		 if(userInfo != null) {
+			 request.getSession().removeAttribute("user");
+		 }
+		 
+		 return "/Client/Register";
+	 }
+	 
+	 @RequestMapping(value = "/Register", method = RequestMethod.POST)
+	 public String RegisterPagePost(Model model, HttpServletRequest request, @ModelAttribute("RegisterRequest")RegisterRequestModel user) {
+		 if(_service.AddUser(user.getName(), 0, user.getBirthDay(), user.getEmail(), 
+				 user.getToken(), user.getPhone(), user.getAddress())) {
+			 return "/Client/HomePage";
+		 }
+		 
+		 return "/Client/Register";
 	 }
 }
 

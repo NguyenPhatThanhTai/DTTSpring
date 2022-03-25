@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
+import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.OrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
@@ -17,4 +18,6 @@ public interface IDataAccess {
 	public int CountProduct();
 	public List<CommentProductDaoModel> GetCommentOfProduct(int productId);
 	public boolean addComment(int id, String content, Date date, int star, int prodId, int cusId);
+	public CustomerDaoModel getUserOfEmail(String Email);
+	public boolean AddUser(int id, String name, int gender, Date birthday, String email, String token, String phone, String address);
 }

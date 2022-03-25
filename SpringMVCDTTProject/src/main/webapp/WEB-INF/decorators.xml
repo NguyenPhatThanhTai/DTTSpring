@@ -2,6 +2,10 @@
 	<decorator name="Client" page="Client.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+	<decorator name="Login">
+		<pattern>/Login</pattern>
+		<pattern>/Register</pattern>
+	</decorator>
 	<decorator name="Admin" page="Admin.jsp">
 		<pattern>/quan-tri/*</pattern>
 	</decorator>

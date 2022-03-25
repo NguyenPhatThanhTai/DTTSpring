@@ -18,4 +18,7 @@ public interface IService {
 	public int CountProduct();
 	public List<CommentProductDaoModel> GetCommentOfProduct(int productId);
 	public boolean sentComment(String content, int star, int prodId, int cusId);
+	public boolean CheckLogin(String Email, String Password);
+	public boolean AddUser(String name, int gender, Date birthday, String email, String password,
+			String phone, String address);
 }

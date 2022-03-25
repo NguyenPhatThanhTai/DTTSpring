@@ -1,7 +1,7 @@
 package net.dtt.spring.Models.DAOModel;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -88,7 +88,7 @@ public class CustomerDaoModel implements Serializable {
 		this.Email = email;
 	}
 	
-	@Column(name = "token", length = 50, nullable = true)
+	@Column(name = "token", nullable = true)
 	public String getToken() {
 		return this.Token;
 	}

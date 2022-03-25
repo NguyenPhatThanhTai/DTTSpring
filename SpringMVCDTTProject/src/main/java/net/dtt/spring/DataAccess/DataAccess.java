@@ -102,4 +102,41 @@ public class DataAccess implements IDataAccess {
 			return false;
 		}
 	}
+
+	@Override
+	public CustomerDaoModel getUserOfEmail(String Email) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CustomerDaoModel cus = (CustomerDaoModel) session.createQuery("FROM CustomerDaoModel C where C.email = '" + Email + "'").getSingleResult();
+			return cus;
+//		}
+//		catch (Exception e) {
+//			return null;
+//		}
+	}
+
+	@Override
+	public boolean AddUser(int id, String name, int gender, Date birthday, String email, String token,
+			String phone, String address) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CustomerDaoModel cus = new CustomerDaoModel();
+			cus.setAddress(address);
+			cus.setBirthDay(birthday);
+			cus.setEmail(email);
+			cus.setGender(gender);
+			cus.setId(id);
+			cus.setName(name);
+			cus.setPhone(phone);
+			cus.setToken(token);
+			
+			session.persist(cus);
+			
+			return true;
+//		} catch (Exception e) {
+//			return false;
+//		}
+	}
 }

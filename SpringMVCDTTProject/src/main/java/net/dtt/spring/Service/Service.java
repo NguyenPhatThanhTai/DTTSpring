@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.dtt.spring.DataAccess.DataAccess;
 import net.dtt.spring.DataAccess.IDataAccess;
+import net.dtt.spring.JBCrypt.JBCRYPT;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
@@ -68,7 +69,6 @@ public class Service implements IService {
 
 			try {
 				Calendar calendar = Calendar.getInstance();
-				int dayOfWeek = calendar.get(Calendar.DAY_OF_MONTH);
 				int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
 				
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -85,4 +85,40 @@ public class Service implements IService {
 				return false;
 			}
 	}
+
+	@Override
+	public boolean CheckLogin(String Email, String Password) {
+		JBCRYPT jbCrypt = new JBCRYPT();
+		var user = _dataAccess.getUserOfEmail(Email);
+		
+		if(user != null) {
+			return jbCrypt.checkpw(Password, user.getToken());
+		}
+		return false;
+	}
+
+	@Override
+	public boolean AddUser(String name, int gender, java.sql.Date birthday, String email, String password, String phone,
+			String address) {
+		Calendar calendar = Calendar.getInstance();
+		int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+		
+		JBCRYPT jbCrypt = new JBCRYPT();
+		password = jbCrypt.hashpw(password, jbCrypt.gensalt(12));
+		
+		return _dataAccess.AddUser(id, name, gender, birthday, email, password, phone, address);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
