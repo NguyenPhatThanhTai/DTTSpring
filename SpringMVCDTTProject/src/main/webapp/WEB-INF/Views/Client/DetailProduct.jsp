@@ -156,7 +156,6 @@
 	        })
 	        
 	        $("#sentComment").on("click", function(){
-	        	alert($("#comment-input").val());
 		    	$.ajax({
 		    		  type: 'POST',
 		    		  contentType : 'application/json; charset=utf-8',

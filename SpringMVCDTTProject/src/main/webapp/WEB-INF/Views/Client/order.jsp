@@ -27,6 +27,10 @@
 <link rel="icon" href="./images/TTDStore_logo.png">
 <!-- css -->
 <link rel="stylesheet" href="<c:url value="/resources/CSS/order.css" />">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<div class="container">
@@ -51,12 +55,15 @@
 					</li>
 				</c:forEach>
 			</ul>
+			
+			<div id="currentMoney"><b><h3>Tổng thanh toán: </b><span id="totalMoney">${total_money}</span> VND</h3></div>
+			<div id="discountMoney"></div>
 
 			<form class="card p-2">
 				<div class="input-group">
-					<input type="text" class="form-control"
+					<input type="text" class="form-control" id="discountCode"
 						placeholder="Nhập mã giảm giá">
-					<button type="submit" class="btn btn-secondary">Áp dụng</button>
+					<button type="button" id="disCountSubmit" class="btn btn-secondary">Áp dụng</button>
 				</div>
 			</form>
 		</div>
@@ -94,14 +101,9 @@
 					</div>
 
 					<div class="col-md-5">
-						<label for="country" class="form-label">Tỉnh/Thành phố</label> <select
-							class="form-select" id="country" required="">
+						<label for="country" class="form-label">Tỉnh/Thành phố</label> 
+						<select class="form-select" id="country" required="">
 							<option value="">Vui lòng chọn...</option>
-							<option value="1">Thành phố Hồ Chí Minh</option>
-							<option value="2">Hà Nội</option>
-							<option value="3">Bình Dương</option>
-							<option value="4">Long An</option>
-							<option value="5">Cà Mau</option>
 						</select>
 						<div class="invalid-feedback">Vui lòng chọn Tỉnh/Thành phố
 							của bạn.</div>
@@ -111,18 +113,6 @@
 						<label for="state" class="form-label">Quận/Huyện</label> <select
 							class="form-select" id="state" required="">
 							<option value="">Vui lòng chọn...</option>
-							<option value="1">Quận 1</option>
-							<option value="2">Quận 3</option>
-							<option value="3">Quận Bình Thạnh</option>
-							<option value="4">Thủ Dầu Một</option>
-							<option value="5">Dĩ An</option>
-							<option value="6">Bến Cát</option>
-							<option value="7">Bến Lức</option>
-							<option value="8">Châu Thành</option>
-							<option value="9">Cần Đước</option>
-							<option value="10">An Lộc</option>
-							<option value="11">Tân Định</option>
-							<option value="12">Tân Lợi</option>
 						</select>
 						<div class="invalid-feedback">Vui lòng nhập Quận/Huyện của
 							bạn.</div>
@@ -210,5 +200,60 @@
 		<button class="w-100 btn btn-primary btn-lg" type="submit">Xác
 			nhận thanh toán</button>
 	</div>
+		<script type="text/javascript">
+	    $(document).ready(function() {
+	    	var listCity = null;
+	    	$.ajax({
+    		  type: 'GET',
+    		  dataType : 'json',
+    		  url: "https://provinces.open-api.vn/api/?depth=2",
+    		  crossDomain: true,
+    		  complete: function (data) {
+    			    data = JSON.parse(data.responseText);
+    			    listCity = data;
+    			    listCity.forEach((x) =>{
+						$("#country").append('<option class="city" value="'+x.code+'">'+x.name+'</option>')
+					})
+				}
+    		  })
+    		  
+    		  $("#country").on("change", function(){
+    			    $("#state").html("");
+			    	var state = listCity.find(y => y.code == $("#country").val());
+			    	state.districts.forEach((x) =>{
+						$("#state").append('<option class="state" value="'+x.code+'">'+x.name+'</option>')
+					})
+    		  })
+    		  
+    		  $("#cash").on("click", function(){
+    			  $("#cc-name").prop('disabled', true);
+    			  $("#cc-number").prop('disabled', true);
+    			  $("#cc-expiration").prop('disabled', true);
+    			  $("#cc-cvv").prop('disabled', true);
+    		  })
+    		  
+    		  $("#paypal").on("click", function(){
+    			  $("#cc-name").prop('disabled', true);
+    			  $("#cc-number").prop('disabled', true);
+    			  $("#cc-expiration").prop('disabled', true);
+    			  $("#cc-cvv").prop('disabled', true);
+    		  })
+    		  
+    		  $("#credit").on("click", function(){
+    			  $("#cc-name").prop('disabled', false);
+    			  $("#cc-number").prop('disabled', false);
+    			  $("#cc-expiration").prop('disabled', false);
+    			  $("#cc-cvv").prop('disabled', false);
+    		  })
+    		  
+    		  $("#disCountSubmit").on("click", function(e){
+    			  e.preventDefault();
+    			  if($("#discountCode").val() == "DTTSALEOFF"){
+    				  $("#currentMoney").html('<del><b><h3>Tổng thanh toán: </b><span id="totalMoney">${total_money}</span> VND</h3></del>');
+    				  $("#discountMoney").html('<b><h3>Tổng thanh toán: </b><span id="totalMoney">${total_money - (total_money * 15 / 100)}</span> VND</h3>');
+    			  }
+    		  })
+	    })
+    </script>
 </body>
 </html>

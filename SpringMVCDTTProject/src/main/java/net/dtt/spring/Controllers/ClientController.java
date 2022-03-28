@@ -171,6 +171,16 @@ public class ClientController {
 	 public String OrderPage(Model model, HttpSession session) {
 		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
 		 
+		 if(cartInfo != null) {
+			 var totalMoney = 0;
+			 
+			 for (AddToCardRequestModel item : cartInfo) {
+				 totalMoney += item.getPrice() * item.getNumber();
+			 }
+			 
+			 model.addAttribute("total_money", totalMoney);
+		 }
+		 
 		 model.addAttribute("list_cart", cartInfo);
 		 
 		 return "/Client/order";
