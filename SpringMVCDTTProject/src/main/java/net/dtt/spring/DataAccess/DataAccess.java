@@ -105,21 +105,21 @@ public class DataAccess implements IDataAccess {
 
 	@Override
 	public CustomerDaoModel getUserOfEmail(String Email) {
-//		try {
+		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			
 			CustomerDaoModel cus = (CustomerDaoModel) session.createQuery("FROM CustomerDaoModel C where C.email = '" + Email + "'").getSingleResult();
 			return cus;
-//		}
-//		catch (Exception e) {
-//			return null;
-//		}
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean AddUser(int id, String name, int gender, Date birthday, String email, String token,
 			String phone, String address) {
-//		try {
+		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			
 			CustomerDaoModel cus = new CustomerDaoModel();
@@ -135,8 +135,21 @@ public class DataAccess implements IDataAccess {
 			session.persist(cus);
 			
 			return true;
-//		} catch (Exception e) {
-//			return false;
-//		}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public CustomerDaoModel GetUserOfId(int userId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			CustomerDaoModel cus = (CustomerDaoModel) session.createQuery("FROM CustomerDaoModel C where C.id = '" + userId + "'").getSingleResult();
+			
+			return cus;
+		}catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 }

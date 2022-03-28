@@ -18,6 +18,7 @@ import net.dtt.spring.DataAccess.IDataAccess;
 import net.dtt.spring.JBCrypt.JBCRYPT;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
+import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
@@ -107,6 +108,20 @@ public class Service implements IService {
 		password = jbCrypt.hashpw(password, jbCrypt.gensalt(12));
 		
 		return _dataAccess.AddUser(id, name, gender, birthday, email, password, phone, address);
+	}
+
+	@Override
+	public CustomerDaoModel GetUserById(int userId) {
+		var cusDataGet = _dataAccess.GetUserOfId(userId);
+		
+		cusDataGet.setToken(null);
+		
+		return cusDataGet;
+	}
+
+	@Override
+	public CustomerDaoModel GetUserByEmail(String email) {
+		return _dataAccess.getUserOfEmail(email);
 	}
 }
 

@@ -20,4 +20,5 @@ public interface IDataAccess {
 	public boolean addComment(int id, String content, Date date, int star, int prodId, int cusId);
 	public CustomerDaoModel getUserOfEmail(String Email);
 	public boolean AddUser(int id, String name, int gender, Date birthday, String email, String token, String phone, String address);
+	public CustomerDaoModel GetUserOfId(int userId);
 }

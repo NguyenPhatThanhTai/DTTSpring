@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
+import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
@@ -21,4 +22,6 @@ public interface IService {
 	public boolean CheckLogin(String Email, String Password);
 	public boolean AddUser(String name, int gender, Date birthday, String email, String password,
 			String phone, String address);
+	public CustomerDaoModel GetUserById(int userId);
+	public CustomerDaoModel GetUserByEmail(String email);
 }
