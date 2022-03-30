@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
@@ -117,50 +123,50 @@ public class ClientController {
 	 }
 	 
 	 @RequestMapping(value = "/addToCartJson", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody ResponseModel addToCard(@RequestBody AddToCardRequestModel cart, HttpServletRequest request) {
-		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>) request.getSession().getAttribute("cart");
+	 public @ResponseBody ResponseModel addToCard(@RequestBody AddToCardRequestModel cart, HttpServletRequest request, HttpServletResponse response, @CookieValue("cart") String cartCookie) {
+		 List<AddToCardRequestModel> cartInfo = new Gson().fromJson(cartCookie, new TypeToken<List<AddToCardRequestModel>>(){}.getType());
 		 boolean isDefined = false;
 		 
 		 if(cartInfo != null && cartInfo.size() > 0) {
 			 
 			 for(int i = 0; i < cartInfo.size(); i++) {
-				 System.out.println("=========" + cart.getProductId() + " VS " + cartInfo.get(i).getProductId());
 				 if(cartInfo.get(i).getProductId() == cart.getProductId()) {
 					 isDefined = true;
 					if (cart.getAction() == 0) {
-						System.out.println("================== " + cartInfo.get(i).getAction());
 						cartInfo.get(i).setNumber(cartInfo.get(i).getNumber() + 1 );
-						System.out.println("================== 1 + || " + cartInfo.get(i).getNumber());
 					}
 					else {
 						cartInfo.get(i).setNumber(cartInfo.get(i).getNumber() - 1 );
 						if(cartInfo.get(i).getNumber() == 0) {
 							cartInfo.remove(cartInfo.get(i));
-							System.out.println("================== 2");
 						}
 					}
 				 }
 			 }
 			 
 			 if(!isDefined) {
-				 System.out.println("============== 3" );
 				 cartInfo.add(cart);
 			 }
 		 }
 		 else {
-			 System.out.println("================== 4");
 			 cartInfo = new ArrayList<AddToCardRequestModel>();
 			 cartInfo.add(cart);
 		 }
 		 
 		 request.getSession().setAttribute("cart", cartInfo);
 		 
+		 //add to cookie
+		 String cartJson = new Gson().toJson(cartInfo);
+		 response.addCookie(new Cookie("cart", cartJson));
+		 
 		 return new ResponseModel(200, "Success", true);
 	 }
 	 
 	 @RequestMapping(value = "/cart", method = RequestMethod.GET)
-	 public String CartPage(Model model, HttpSession session) {
-		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
+	 public String CartPage(Model model, HttpSession session, @CookieValue("cart") String cartCookie) {
+		 List<AddToCardRequestModel> cartInfo = new Gson().fromJson(cartCookie, new TypeToken<List<AddToCardRequestModel>>(){}.getType());
+		 
+		 //<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
 		 
 		 model.addAttribute("list_cart", cartInfo);
 		 
@@ -168,8 +174,8 @@ public class ClientController {
 	 }
 	 
 	 @RequestMapping(value = "/order", method = RequestMethod.GET)
-	 public String OrderPage(Model model, HttpSession session) {
-		 List<AddToCardRequestModel> cartInfo = (List<AddToCardRequestModel>)session.getAttribute("cart");
+	 public String OrderPage(Model model, HttpSession session, @CookieValue("cart") String cartCookie) {
+		 List<AddToCardRequestModel> cartInfo = new Gson().fromJson(cartCookie, new TypeToken<List<AddToCardRequestModel>>(){}.getType());
 		 
 		 if(cartInfo != null) {
 			 var totalMoney = 0;
