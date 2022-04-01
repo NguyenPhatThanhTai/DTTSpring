@@ -4,9 +4,10 @@
 	</decorator>
 	<decorator name="Login">
 		<pattern>/Login</pattern>
+		<pattern>/Admin/Login</pattern>
 		<pattern>/Register</pattern>
 	</decorator>
-	<decorator name="Admin" page="Admin.jsp">
-		<pattern>/quan-tri/*</pattern>
+	<decorator name="Admin">
+		<pattern>/Admin/*</pattern>
 	</decorator>
 </decorators>

@@ -19,6 +19,7 @@ import net.dtt.spring.JBCrypt.JBCRYPT;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
+import net.dtt.spring.Models.DAOModel.ManufacturersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
@@ -122,6 +123,22 @@ public class Service implements IService {
 	@Override
 	public CustomerDaoModel GetUserByEmail(String email) {
 		return _dataAccess.getUserOfEmail(email);
+	}
+
+	@Override
+	public boolean CheckLoginAdmin(String Email, String Password) {
+		JBCRYPT jbCrypt = new JBCRYPT();
+		var user = _dataAccess.GetUserAdmin(Email);
+		
+		if(user != null) {
+			return jbCrypt.checkpw(Password, user.getPassword());
+		}
+		return false;
+	}
+
+	@Override
+	public List<ManufacturersDaoModel> getAllManufacturers() {
+		return _dataAccess.getAllManufacturers();
 	}
 }
 

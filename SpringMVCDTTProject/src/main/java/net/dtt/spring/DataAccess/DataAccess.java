@@ -10,9 +10,11 @@ import org.hibernate.Transaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.dtt.spring.HibernateUntil.Until;
+import net.dtt.spring.Models.DAOModel.AdminDaoModel;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
+import net.dtt.spring.Models.DAOModel.ManufacturersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.entity.Test;
@@ -149,6 +151,34 @@ public class DataAccess implements IDataAccess {
 			return cus;
 		}catch (Exception e) {
 			// TODO: handle exception
+			return null;
+		}
+	}
+
+	@Override
+	public AdminDaoModel GetUserAdmin(String Email) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			AdminDaoModel cus = (AdminDaoModel) session.createQuery("FROM AdminDaoModel A where A.email = '" + Email + "'").getSingleResult();
+			return cus;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+
+	@Override
+	public List<ManufacturersDaoModel> getAllManufacturers() {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			List<ManufacturersDaoModel> manufactors = session.createQuery("FROM ManufacturersDaoModel").list();
+			return manufactors;
+		}
+		catch (Exception e) {
+			System.out.println(e);
 			return null;
 		}
 	}

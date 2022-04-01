@@ -74,7 +74,7 @@ public class AdminDaoModel implements Serializable {
 		Email = email;
 	}
 	
-	@Column(name = "password", length = 50, nullable = true)
+	@Column(name = "password")
 	public String getPassword() {
 		return Password;
 	}
