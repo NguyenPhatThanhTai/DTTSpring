@@ -68,24 +68,23 @@ public class Service implements IService {
 
 	@Override
 	public boolean sentComment(String content, int star, int prodId, int cusId) {
-
-			try {
-				Calendar calendar = Calendar.getInstance();
-				int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
-				
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date date = new Date();
-		
-				Date parseDate;
-				
-				parseDate = dateFormat.parse(dateFormat.format(date));
-				
-				return _dataAccess.addComment(id, content, parseDate, star, prodId, cusId);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			}
+		try {
+			Calendar calendar = Calendar.getInstance();
+			int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+	
+			Date parseDate;
+			
+			parseDate = dateFormat.parse(dateFormat.format(date));
+			
+			return _dataAccess.addComment(id, content, parseDate, star, prodId, cusId);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -139,6 +138,17 @@ public class Service implements IService {
 	@Override
 	public List<ManufacturersDaoModel> getAllManufacturers() {
 		return _dataAccess.getAllManufacturers();
+	}
+
+	@Override
+	public boolean AddProduct(int manufactorId, int categoryId, String productName, String description, float price,
+			String img_cover, String img_hover, String img_detail1, String img_detail2, String img_detail3,
+			String img_detail4) {
+		Calendar calendar = Calendar.getInstance();
+		int productId = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+		int detailProductId = calendar.get(Calendar.MINUTE) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+		
+		return _dataAccess.AddProduct(productId, manufactorId, categoryId, detailProductId, productName, description, price, img_cover, img_hover, img_detail1, img_detail2, img_detail3, img_detail4);
 	}
 }
 

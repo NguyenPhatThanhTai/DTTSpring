@@ -1,16 +1,25 @@
 package net.dtt.spring.Controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.dtt.spring.Enum.EnumClass;
+import net.dtt.spring.Models.DAOModel.ProductDaoModel;
+import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.Models.ViewModels.AddProductRequestModel;
+import net.dtt.spring.Models.ViewModels.CommentViewModel;
+import net.dtt.spring.Models.ViewModels.DetailProductViewModel;
 import net.dtt.spring.Models.ViewModels.LoginRequestModel;
 import net.dtt.spring.Service.IService;
 
@@ -29,6 +38,7 @@ public class AdminController {
 		 
 		 model.addAttribute("All_Category", _service.getAllCategory());
 		 model.addAttribute("All_Manufactors", _service.getAllManufacturers());
+		 model.addAttribute("All_Product", _service.GetAllProduct(1, null));
 	     return "/Admin/ProductManagment";
 	 }
 	
@@ -54,8 +64,25 @@ public class AdminController {
 	 }
 	 
 	 @RequestMapping(value = "/AddProduct", method = RequestMethod.POST)
-	 public String AddProduct(Model model, HttpServletRequest request, @ModelAttribute("AddProduct")AddProductRequestModel user) {
+	 public String AddProduct(Model model, HttpServletRequest request, @ModelAttribute("AddProduct")AddProductRequestModel product) {
+		 if(_service.AddProduct(Integer.parseInt(product.getManufactorsId()), Integer.parseInt(product.getCategoryId()), product.getName(), product.getDescripsion(), Float.parseFloat(product.getPrice()),
+				 product.getImg_cover(), product.getImg_hover(), product.getImg_detail1(), product.getImg_detail2(), product.getImg_detail3(), product.getImg_detail4()))
+			 model.addAttribute("alert", "Thêm thành công");
+		 model.addAttribute("alert", "Thêm thất bại");
 		 
-		 return "redirect:/";
+		 return "redirect:/Admin/";
+	 }
+	 
+	 @RequestMapping(value = "/GetProductJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody DetailProductViewModel GetProductJson(Model model, HttpServletRequest request,@RequestParam(value="prodId") int prodId) {
+		 var productDetail = _service.GetDetailproduct(prodId);
+		 
+		 DetailProductViewModel detailProduct = new DetailProductViewModel(productDetail.getProductDetail().getId(), productDetail.getProductDetail().getName(),
+				 productDetail.getProductDetail().getDescription(), productDetail.getProductDetail().getPrice(), productDetail.getProductDetail().getImg_Cover(),
+				 productDetail.getProductDetail().getImg_Hover(), productDetail.getProductDetail().getImg_Detail1(), 
+				 productDetail.getProductDetail().getImg_Detail2(), productDetail.getProductDetail().getImg_Detail3(), productDetail.getProductDetail().getImg_Detail4(),
+				 0, productDetail.getId(), productDetail.getCategory().getId(), productDetail.getManufacturers().getId());
+		 
+		 return detailProduct;
 	 }
 }

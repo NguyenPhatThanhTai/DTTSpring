@@ -9,7 +9,11 @@
 	<link rel="stylesheet" href="<c:url value="/resources/CSS/baloCRUD.css" />">
     <!-- bootstrap -->
 	<!-- icon -->
-	<link rel="icon" href="../admin/img/TTDStore_logo.png">    
+	<link rel="icon" href="../admin/img/TTDStore_logo.png">
+	<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<title>DTT Store Admin</title>
 </head>
 <body>
@@ -84,55 +88,34 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>STT</th>
+                            <th>ID</th>
                             <th>Tên sản phẩm</th>
                             <th>Loại sản phẩm</th>
                             <th>Giá</th>
                             <th>Giới thiệu</th>
-                            <th>Số lượng</th>
                             <th>Ảnh đại điện</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>iPhone X</td>
-                            <td>iPhone</td>
-                            <td>1.200.000</td>
-                            <td>Chào em</td>
-                            <td>100</td>
-                            <td>Image</td>
-                            <td>
-                                <button type="button" class="btn-edit" data-toggle="modal" data-target="#modalEdit">
-                                    <i class='bx bx-edit-alt' ></i>
-                                    
-                                </button>
-                                <button type="button" class="btn-delete" data-toggle="modal" data-target="#modalDel">
-                                    <i class='bx bx-trash' ></i>
-                                
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>iPhone X</td>
-                            <td>iPhone</td>
-                            <td>1.200.000</td>
-                            <td>Chào em</td>
-                            <td>100</td>
-                            <td>image</td>
-                            <td>
-                                <button type="button" class="btn-edit" data-toggle="modal" data-target="#modalEdit">
-                                    <i class='bx bx-edit-alt' ></i>
-                                    
-                                </button>
-                                <button type="button" class="btn-delete" data-toggle="modal" data-target="#modalDel">
-                                    <i class='bx bx-trash' ></i>
-                                
-                                </button>
-                            </td>
-                        </tr>
+	                    <c:forEach var="item" items="${All_Product}" varStatus="status">
+		                    <tr>
+		                    	  <td>${item.productDetail.id}</td>
+		                            <td>${item.productDetail.name}</td>
+		                            <td>${item.category.name}</td>
+		                            <td>${item.productDetail.price}</td>
+		                            <td>${item.productDetail.description}</td>
+		                            <td style="text-align: center;"><img width="100" src="${item.productDetail.img_Cover}"></td>
+		                            <td>
+		                                <button type="button" class="btn-edit" data-toggle="modal" data-target="#modalEdit" onclick=(getProduct(${item.productDetail.id}))>
+		                                    <i class='bx bx-edit-alt' ></i>
+		                                </button>
+		                                <button type="button" class="btn-delete" data-toggle="modal" data-target="#modalDel">
+		                                    <i class='bx bx-trash' ></i>
+		                                </button>
+		                            </td>
+		                    </tr>
+	                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -142,7 +125,7 @@
                 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    <form method="POST" action="Register" modelAttribute="AddProduct">
+                    <form method="POST" action="AddProduct" modelAttribute="AddProduct">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Thêm Sản Phẩm</h4>
@@ -187,7 +170,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                      <button type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                      <input type="submit" value="Thêm" class="btn btn-primary" />
                     </div>
                    </form>
                   </div>
@@ -222,31 +205,8 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Cập nhật sản phẩm</h4>
                     </div>
-                    <div class="modal-body">
-                        <div class="modal-body-left">
-                            <p>Tên sản phẩm</p>
-                            <input type="text" placeholder="Tên sản phẩm" class="form-control my-3 p-4" value="A du` balo kia`">
-                            <p>Giới thiệu sản phẩm</p>
-                            <input type="text" placeholder="Giới thiệu sản phẩm" class="form-control my-3 p-4" value="Balo dep vl vay man !!">
-                            <p>Giá sản phẩm</p>
-                            <input type="text" placeholder="Giá sản phẩm" class="form-control my-3 p-4" value="10000000 VND">
-                            <p>Ảnh đại diện sản phẩm</p>
-                            <input type="text" placeholder="Link ảnh đại diện" class="form-control my-3 p-4" value="avatar ne`">
-                            <p>Ảnh phụ đại diện sản phẩm</p>
-                            <input type="text" placeholder="Link ảnh phụ" class="form-control my-3 p-4" value="avatar phu. ne`">
-                          </div>
-                          <div class="modal-body-left">
-                              <p>Ảnh chi tiết thứ nhất sản phẩm</p>
-                              <input type="text" placeholder="Link ảnh chi tiết thứ nhất" class="form-control my-3 p-4" value="avatar thu nhat ne`">
-                              <p>Ảnh chi tiết thứ hai sản phẩm</p>
-                              <input type="text" placeholder="Link ảnh chi tiết thứ hai" class="form-control my-3 p-4" value="avatar thu hai ne`"/>
-                              <p>Ảnh chi tiết thứ ba sản phẩm</p>
-                              <input type="text" placeholder="Link ảnh chi tiết thứ ba" class="form-control my-3 p-4" value="avatar thu ba ne`">
-                              <p>Ảnh chi tiết thứ tư sản phẩm</p>
-                              <input type="text" placeholder="Link ảnh chi tiết thứ tư" class="form-control my-3 p-4" value="avatar thu tu ne`">
-                              <p>Số lượng</p>
-                              <input type="text" placeholder="Số lượng" class="form-control my-3 p-4" value="50">
-                          </div>
+                    <div class="modal-body" id="updateContent">
+						<!-- load by ajax -->
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
@@ -259,8 +219,60 @@
 		<!-- MAIN -->
 	</section>
 	<!-- NAVBAR -->
+	<script>
+	function getProduct(prodId){
+		$("#updateContent").html("");
+			$.ajax({
+				  type: 'GET',
+				  dataType:"jsonp",
+				  url: '../Admin/GetProductJson?prodId=' + prodId,
+				  complete: function (data) {
+					  console.log(data.responseText.name);
+					  
+	    		    	var updateContent = 
+	    		    		'<div class="modal-body-left">' +
+	                    		'<p>Tên sản phẩm</p>' +
+	                        	'<p>Giới thiệu sản phẩm</p>' +
+	                            '<input type="text" placeholder="Giới thiệu sản phẩm" class="form-control my-3 p-4" value="Balo dep vl vay man !!">' +
+	                        	'<p>Giá sản phẩm</p>' + 
+	                        	'<input type="text" placeholder="Giá sản phẩm" class="form-control my-3 p-4" value="10000000 VND">' + 
+	                            '<p>Ảnh đại diện sản phẩm</p>' + 
+	                            '<input type="text" placeholder="Link ảnh đại diện" class="form-control my-3 p-4" value="avatar ne`">' + 
+	                            '<p>Ảnh phụ đại diện sản phẩm</p>' + 
+	                            '<input type="text" placeholder="Link ảnh phụ" class="form-control my-3 p-4" value="avatar phu. ne`">' +
+	                        	'<p>Nhà sản xuất</p>' +
+                                '<select class="form-control my-3 p-4" name="ManufactorsId">' + 
+                                	'<c:forEach var="item" items="${All_Manufactors}" varStatus="status">' +
+                                	    '<option value="${item.id}">${item.name}</option>' +
+                                	'</c:forEach>' +
+                                '</select>' +
+	                            '</div>' +
+	                    	'<div class="modal-body-left">' +
+                    			'<p>Ảnh chi tiết thứ nhất sản phẩm</p>' +
+                        		'<input type="text" placeholder="Link ảnh chi tiết thứ nhất" class="form-control my-3 p-4" value="avatar thu nhat ne`">' +
+                            	'<p>Ảnh chi tiết thứ hai sản phẩm</p>' +
+                        		'<input type="text" placeholder="Link ảnh chi tiết thứ hai" class="form-control my-3 p-4" value="avatar thu hai ne`"/>' + 
+                        		'<p>Ảnh chi tiết thứ ba sản phẩm</p>' + 
+                            	'<input type="text" placeholder="Link ảnh chi tiết thứ ba" class="form-control my-3 p-4" value="avatar thu ba ne`">' +  
+                            	'<p>Ảnh chi tiết thứ tư sản phẩm</p>' + 
+                            	'<input type="text" placeholder="Link ảnh chi tiết thứ tư" class="form-control my-3 p-4" value="avatar thu tu ne`">' +
+                            	'<p>Số lượng</p>' +
+                            	'<input type="text" placeholder="Số lượng" class="form-control my-3 p-4" value="50">' +
+	                        	'<p>Nhà sản xuất</p>' +
+                                '<select class="form-control my-3 p-4" name="ManufactorsId">' + 
+                                	'<c:forEach var="item" items="${All_Category}" varStatus="status">' +
+                                	    '<option value="${item.id}">${item.name}</option>' +
+                                	'</c:forEach>' +
+                                '</select>' +
+                        	'</div>' +
+	                   		
+	    		    	$("#updateContent").html(updateContent);
+				  }
+			});	
+		}
+	</script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="<c:url value="/resources/JS/script.js" />"></script>

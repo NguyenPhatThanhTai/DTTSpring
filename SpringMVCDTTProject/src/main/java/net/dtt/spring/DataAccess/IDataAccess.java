@@ -25,4 +25,7 @@ public interface IDataAccess {
 	public CustomerDaoModel GetUserOfId(int userId);
 	public AdminDaoModel GetUserAdmin(String Email);
 	public List<ManufacturersDaoModel> getAllManufacturers();
+	public boolean AddProduct(int productId, int manufactorId, int categoryId, int detailProductId, String productName, 
+			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
+			String img_detail3, String img_detail4);
 }

@@ -182,4 +182,40 @@ public class DataAccess implements IDataAccess {
 			return null;
 		}
 	}
+
+	@Override
+	public boolean AddProduct(int productId, int manufactorId, int categoryId, int detailProductId, String productName,
+			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
+			String img_detail3, String img_detail4) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ProductDaoModel product = new ProductDaoModel();
+			product.setId(productId);
+			product.setManufacturers(session.load(ManufacturersDaoModel.class, manufactorId));
+			product.setCategory(session.load(CategoryDaoModel.class, categoryId));
+			
+			session.persist(product);
+			
+			ProductDetailDaoModel productDetail = new ProductDetailDaoModel();
+			productDetail.setId(detailProductId);
+			productDetail.setImg_Cover(img_cover);
+			productDetail.setImg_Hover(img_hover);
+			productDetail.setImg_Detail1(img_detail1);
+			productDetail.setImg_Detail2(img_detail2);
+			productDetail.setImg_Detail3(img_detail3);
+			productDetail.setImg_Detail4(img_detail4);
+			productDetail.setName(productName);
+			productDetail.setPrice(price);
+			productDetail.setQuantityInShop(0);
+			productDetail.setDescription(description);
+			productDetail.setProduct(session.load(ProductDaoModel.class, productId));
+			
+			session.persist(productDetail);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
 }
