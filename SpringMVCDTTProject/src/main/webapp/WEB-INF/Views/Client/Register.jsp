@@ -36,7 +36,9 @@
 		<div class="container">
 			<div class="row no-gutters">
 				<div class="col-lg-5">
-					<img src="<c:url value="/resources/IMG/z3289482746415_6ccb059ec661861329893058a3622956.jpg" />" class="img-fluid" alt="">
+					<img
+						src="<c:url value="/resources/IMG/z3289482746415_6ccb059ec661861329893058a3622956.jpg" />"
+						class="img-fluid" alt="">
 				</div>
 				<div class="col-lg-7 px-5 pt-4">
 					<h1 class="font-weight-bold py-3">DTT Store</h1>
@@ -69,7 +71,8 @@
 						</div>
 						<div class="form-row">
 							<div class="col-lg-7">
-								<input type="submit" value="Đăng ký ngay" class="btn-login mt-3 mb-5">
+								<input type="submit" value="Đăng ký ngay"
+									class="btn-login mt-3 mb-5">
 							</div>
 							<p>
 								Bạn đã có tài khoản ? <a href="/Login">Đăng nhập ngay</a>

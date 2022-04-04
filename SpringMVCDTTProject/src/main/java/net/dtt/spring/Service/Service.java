@@ -150,6 +150,15 @@ public class Service implements IService {
 		
 		return _dataAccess.AddProduct(productId, manufactorId, categoryId, detailProductId, productName, description, price, img_cover, img_hover, img_detail1, img_detail2, img_detail3, img_detail4);
 	}
+
+	@Override
+	public boolean UpdateProduct(int productId, int manufactorId, int categoryId, int detailProductId,
+			String productName, String description, float price, String img_cover, String img_hover, String img_detail1,
+			String img_detail2, String img_detail3, String img_detail4) {
+		
+		return _dataAccess.UpdateProduct(productId, manufactorId, categoryId, detailProductId, productName, description, price, 
+				img_cover, img_hover, img_detail1, img_detail2, img_detail3, img_detail4);
+	}
 }
 
 

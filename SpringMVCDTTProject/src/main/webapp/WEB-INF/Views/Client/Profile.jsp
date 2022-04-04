@@ -18,7 +18,8 @@
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 <!-- css -->
-<link rel="stylesheet" href="<c:url value="/resources/CSS/profile.css" />">
+<link rel="stylesheet"
+	href="<c:url value="/resources/CSS/profile.css" />">
 <!-- jQuery -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -32,74 +33,79 @@
 </head>
 <body>
 	<!-- profile section -->
-    <div class="container">
-        <div class="account-page">
-            <div class="profile">
-                <div class="profile-detail">
-                    <img src="./images/TTDStore_logo.png" alt="">
-                    <h2>DTT Store</h2>
-                    <p>dtt@gmail.com</p>
-                </div>
-                <ul>
-                    <li><a href="#" class="active">Thông tin tài khoản <span>></span></a></li>
-                    <li><a href="#">Đổi mật khẩu <span>></span></a></li>
-                    <li><a href="#">Chi tiết đơn hàng <span>></span></a></li>
-                    <li><a href="#">Đơn đã mua <span>></span></a></li>
-                    <li><a href="#">Đăng xuất <span>></span></a></li>
-                </ul>
-            </div>
-            <div class="account-detail">
-                <h2>Thông tin tài khoản</h2>
-                <div class="billing-detail">
-                    <form action="#">
-                        <div class="row">
-                            <div class="col-md-6 mt-5">
-                                <div class="form-group">
-                                    <label for="">Họ tên</label>
-                                    <input type="text" class="form-control" placeholder="Họ tên" value="${UserInfo.name}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-5">
-                                <div class="form-group">
-                                    <label for="">Email</label>
-                                    <input type="text" class="form-control" placeholder="Email" value="${UserInfo.email}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="form-group">
-                                    <label for="">Số điện thoại</label>
-                                    <input type="text" class="form-control" placeholder="Số điện thoại" value="${UserInfo.phone}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="form-group">
-                                    <label for="">Địa chỉ</label>
-                                    <input type="text" class="form-control" placeholder="Địa chỉ" value="${UserInfo.address}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="form-group">
-                                    <label for="">Tỉnh/Thành phố</label>
-                                    <input type="text" class="form-control" placeholder="Tỉnh/Thành phố" value="TPHCM">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="form-group">
-                                    <label for="">Quận/Huyện</label>
-                                    <input type="text" class="form-control" placeholder="Quận/Huyện" value="Null">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label></label>
-                                    <input type="submit" id="btn-update" name="update" value="Cập nhật">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="account-page">
+			<div class="profile">
+				<div class="profile-detail">
+					<img src="./images/TTDStore_logo.png" alt="">
+					<h2>DTT Store</h2>
+					<p>dtt@gmail.com</p>
+				</div>
+				<ul>
+					<li><a href="#" class="active">Thông tin tài khoản <span>></span></a></li>
+					<li><a href="#">Đổi mật khẩu <span>></span></a></li>
+					<li><a href="#">Chi tiết đơn hàng <span>></span></a></li>
+					<li><a href="#">Đơn đã mua <span>></span></a></li>
+					<li><a href="#">Đăng xuất <span>></span></a></li>
+				</ul>
+			</div>
+			<div class="account-detail">
+				<h2>Thông tin tài khoản</h2>
+				<div class="billing-detail">
+					<form action="#">
+						<div class="row">
+							<div class="col-md-6 mt-5">
+								<div class="form-group">
+									<label for="">Họ tên</label> <input type="text"
+										class="form-control" placeholder="Họ tên"
+										value="${UserInfo.name}">
+								</div>
+							</div>
+							<div class="col-md-6 mt-5">
+								<div class="form-group">
+									<label for="">Email</label> <input type="text"
+										class="form-control" placeholder="Email"
+										value="${UserInfo.email}">
+								</div>
+							</div>
+							<div class="col-md-6 mt-3">
+								<div class="form-group">
+									<label for="">Số điện thoại</label> <input type="text"
+										class="form-control" placeholder="Số điện thoại"
+										value="${UserInfo.phone}">
+								</div>
+							</div>
+							<div class="col-md-6 mt-3">
+								<div class="form-group">
+									<label for="">Địa chỉ</label> <input type="text"
+										class="form-control" placeholder="Địa chỉ"
+										value="${UserInfo.address}">
+								</div>
+							</div>
+							<div class="col-md-6 mt-3">
+								<div class="form-group">
+									<label for="">Tỉnh/Thành phố</label> <input type="text"
+										class="form-control" placeholder="Tỉnh/Thành phố"
+										value="TPHCM">
+								</div>
+							</div>
+							<div class="col-md-6 mt-3">
+								<div class="form-group">
+									<label for="">Quận/Huyện</label> <input type="text"
+										class="form-control" placeholder="Quận/Huyện" value="Null">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label></label> <input type="submit" id="btn-update"
+										name="update" value="Cập nhật">
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

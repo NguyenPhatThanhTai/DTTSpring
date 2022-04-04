@@ -55,15 +55,20 @@
 					</li>
 				</c:forEach>
 			</ul>
-			
-			<div id="currentMoney"><b><h3>Tổng thanh toán: </b><span id="totalMoney">${total_money}</span> VND</h3></div>
+
+			<div id="currentMoney">
+				<b><h3>Tổng thanh toán:</b><span id="totalMoney">${total_money}</span>
+				VND
+				</h3>
+			</div>
 			<div id="discountMoney"></div>
 
 			<form class="card p-2">
 				<div class="input-group">
 					<input type="text" class="form-control" id="discountCode"
 						placeholder="Nhập mã giảm giá">
-					<button type="button" id="disCountSubmit" class="btn btn-secondary">Áp dụng</button>
+					<button type="button" id="disCountSubmit" class="btn btn-secondary">Áp
+						dụng</button>
 				</div>
 			</form>
 		</div>
@@ -101,8 +106,8 @@
 					</div>
 
 					<div class="col-md-5">
-						<label for="country" class="form-label">Tỉnh/Thành phố</label> 
-						<select class="form-select" id="country" required="">
+						<label for="country" class="form-label">Tỉnh/Thành phố</label> <select
+							class="form-select" id="country" required="">
 							<option value="">Vui lòng chọn...</option>
 						</select>
 						<div class="invalid-feedback">Vui lòng chọn Tỉnh/Thành phố
@@ -200,7 +205,7 @@
 		<button class="w-100 btn btn-primary btn-lg" type="submit">Xác
 			nhận thanh toán</button>
 	</div>
-		<script type="text/javascript">
+	<script type="text/javascript">
 	    $(document).ready(function() {
 	    	var listCity = null;
 	    	$.ajax({

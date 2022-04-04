@@ -12,6 +12,8 @@ public class AddProductRequestModel {
 	public String Img_detail4;
 	public String CategoryId;
 	public String ManufactorsId;
+	public String ProductId;
+	public String Id;
 	
 	public AddProductRequestModel() {
 		
@@ -19,7 +21,7 @@ public class AddProductRequestModel {
 
 	public AddProductRequestModel(String name, String descripsion, String price, String img_cover, String img_hover,
 			String img_detail1, String img_detail2, String img_detail3, String img_detail4, String categoryId,
-			String manufactorsId) {
+			String manufactorsId, String productId, String id) {
 		Name = name;
 		Descripsion = descripsion;
 		Price = price;
@@ -31,6 +33,8 @@ public class AddProductRequestModel {
 		Img_detail4 = img_detail4;
 		CategoryId = categoryId;
 		ManufactorsId = manufactorsId;
+		ProductId = productId;
+		Id = id;
 	}
 
 	public String getName() {
@@ -119,5 +123,21 @@ public class AddProductRequestModel {
 
 	public void setManufactorsId(String manufactorsId) {
 		ManufactorsId = manufactorsId;
+	}
+
+	public String getProductId() {
+		return ProductId;
+	}
+
+	public void setProductId(String productId) {
+		ProductId = productId;
+	}
+
+	public String getId() {
+		return Id;
+	}
+
+	public void setId(String id) {
+		Id = id;
 	}
 }
