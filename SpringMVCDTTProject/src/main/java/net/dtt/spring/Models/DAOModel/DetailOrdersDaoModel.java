@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -36,17 +37,17 @@ public class DetailOrdersDaoModel implements Serializable {
 		return order;
 	}
 	public void setOrder(OrdersDaoModel order) {
-		order = order;
+		this.order = order;
 	}
 	
 	@Id
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = false)
 	public ProductDaoModel getProduct() {
 		return product;
 	}
 	public void setProduct(ProductDaoModel product) {
-		product = product;
+		this.product = product;
 	}
 	
 	@Column(name = "quantity", length = 11, nullable = true)

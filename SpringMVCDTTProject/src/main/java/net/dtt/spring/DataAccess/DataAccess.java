@@ -14,7 +14,9 @@ import net.dtt.spring.Models.DAOModel.AdminDaoModel;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
+import net.dtt.spring.Models.DAOModel.DetailOrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ManufacturersDaoModel;
+import net.dtt.spring.Models.DAOModel.OrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.entity.Test;
@@ -224,6 +226,7 @@ public class DataAccess implements IDataAccess {
 			String productName, String description, float price, String img_cover, String img_hover, String img_detail1,
 			String img_detail2, String img_detail3, String img_detail4) {
 		Session session = this.sessionFactory.getCurrentSession();
+		
 		ProductDaoModel product = new ProductDaoModel();
 		product.setId(productId);
 		product.setManufacturers(session.load(ManufacturersDaoModel.class, manufactorId));
@@ -246,6 +249,38 @@ public class DataAccess implements IDataAccess {
 		productDetail.setProduct(session.load(ProductDaoModel.class, productId));
 		
 		session.update(productDetail);
+		
+		return false;
+	}
+
+	@Override
+	public boolean SaveCart(int OrderId, List<Integer> ProductId, List<Integer> Quantity, Date OrderDate, String Name,
+			String Phone, String Address, String Note, int Status, Float TotalPrice, int CustomerId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		OrdersDaoModel order = new OrdersDaoModel();
+		order.setAddressReceive(Address);
+		order.setCustomer(session.load(CustomerDaoModel.class, CustomerId));
+		order.setId(OrderId);
+		order.setNameReceive(Name);
+		order.setNote(Note);
+		order.setPhoneReceive(Phone);
+		order.setStatus(Status);
+		order.setTime(OrderDate);
+		order.setTotalPrice(TotalPrice);
+		
+		session.persist(order);
+		
+		DetailOrdersDaoModel detailOrder = new DetailOrdersDaoModel();
+		for (int i = 0; i < ProductId.size(); i++) {
+			System.out.println("================= " + ProductId.get(i));
+			detailOrder.setOrder(session.load(OrdersDaoModel.class, OrderId));
+			detailOrder.setProduct(session.load(ProductDaoModel.class, ProductId.get(i)));
+			detailOrder.setQuantity(Quantity.get(i));
+			detailOrder.setSize("Null");
+			
+			session.persist(detailOrder);
+		}
 		
 		return false;
 	}

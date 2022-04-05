@@ -4,6 +4,8 @@ package net.dtt.spring.DataAccess;
 import java.util.Date;
 import java.util.List;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
+
 import net.dtt.spring.Models.DAOModel.AdminDaoModel;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
@@ -31,4 +33,6 @@ public interface IDataAccess {
 	public boolean UpdateProduct(int productId, int manufactorId, int categoryId, int detailProductId, String productName, 
 			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
 			String img_detail3, String img_detail4);
+	public boolean SaveCart(int OrderId, List<Integer> ProductId, List<Integer> Quantity, Date OrderDate, String Name, String Phone, String Address, String Note, int Status,
+			Float TotalPrice, int CustomerId);
 }

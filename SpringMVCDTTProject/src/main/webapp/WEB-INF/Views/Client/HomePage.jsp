@@ -1,5 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +19,8 @@
 <!-- logo -->
 <link rel="icon" href="<c:url value="/resources/IMG/logo.png" />">
 <!-- css -->
-<link rel="stylesheet" href="<c:url value="/resources/CSS/app.css" />">
-<link rel="stylesheet" href="<c:url value="/resources/CSS/grid.css" />">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/CSS/app.css" />">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/CSS/grid.css" />">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>

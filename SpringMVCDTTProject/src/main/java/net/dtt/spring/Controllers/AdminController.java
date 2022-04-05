@@ -88,8 +88,6 @@ public class AdminController {
 	 
 	 @RequestMapping(value = "/UpdateProduct", method = RequestMethod.POST)
 	 public String UpdateProduct(Model model, HttpServletRequest request, @ModelAttribute("Product")AddProductRequestModel product) {
-		 System.out.println("===================== " + product.getProductId() + " | " + product.getManufactorsId() + " | "
-				 + product.getCategoryId() + " | " + product.getId());
 		 if(_service.UpdateProduct(Integer.parseInt(product.getProductId()), Integer.parseInt(product.getManufactorsId()), Integer.parseInt(product.getCategoryId()), Integer.parseInt(product.getId()), product.getName(), product.getDescripsion(), Float.parseFloat(product.getPrice()),
 				 product.getImg_cover(), product.getImg_hover(), product.getImg_detail1(), product.getImg_detail2(), product.getImg_detail3(), product.getImg_detail4()))
 			 model.addAttribute("alert", "Sửa thành công");

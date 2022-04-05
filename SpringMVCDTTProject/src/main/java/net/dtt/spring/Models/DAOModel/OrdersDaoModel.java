@@ -1,7 +1,7 @@
 package net.dtt.spring.Models.DAOModel;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

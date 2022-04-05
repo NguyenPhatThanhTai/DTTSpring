@@ -33,4 +33,6 @@ public interface IService {
 	public boolean UpdateProduct(int productId, int manufactorId, int categoryId, int detailProductId,
 			String productName, String description, float price, String img_cover, String img_hover, String img_detail1,
 			String img_detail2, String img_detail3, String img_detail4);
+	public boolean CheckOutCard(List<Integer> ProductId, List<Integer> Quantity, String Name,
+			String Phone, String Address, String Note, int Status, Float TotalPrice, int CustomerId);
 }

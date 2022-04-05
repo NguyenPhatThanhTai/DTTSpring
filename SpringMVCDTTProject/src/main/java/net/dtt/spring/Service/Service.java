@@ -159,6 +159,27 @@ public class Service implements IService {
 		return _dataAccess.UpdateProduct(productId, manufactorId, categoryId, detailProductId, productName, description, price, 
 				img_cover, img_hover, img_detail1, img_detail2, img_detail3, img_detail4);
 	}
+
+	@Override
+	public boolean CheckOutCard(List<Integer> ProductId, List<Integer> Quantity,
+			String Name, String Phone, String Address, String Note, int Status, Float TotalPrice, int CustomerId) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+
+			Date parseDate;
+			
+			parseDate = dateFormat.parse(dateFormat.format(date));
+			
+			return _dataAccess.SaveCart(id, ProductId, Quantity, parseDate, Name, Phone, Address, Note, Status, TotalPrice, CustomerId);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
 
 

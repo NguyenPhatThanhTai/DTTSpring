@@ -270,7 +270,7 @@
 	                        	'<p>Nhà sản xuất</p>' +
                                 '<select class="form-control my-3 p-4" name="ManufactorsId">' + 
                                 	'<c:forEach var="item" items="${All_Manufactors}" varStatus="status">' +
-                                	    '<option value="${item.id}">${item.name}</option>' +
+                                	    '<option value="${item.id}" ${data.manufactorId == item.id ? "selected" : ""}>${item.name}</option>' +
                                 	'</c:forEach>' +
                                 '</select>' +
 	                            '</div>' +
@@ -288,7 +288,7 @@
 	                        	'<p>Nhà sản xuất</p>' +
                                 '<select class="form-control my-3 p-4" name="CategoryId">' + 
                                 	'<c:forEach var="item" items="${All_Category}" varStatus="status">' +
-                                	    '<option value="${item.id}">${item.name}</option>' +
+                                	    '<option value="${item.id}" ${data.categoryId == item.id ? "selected" : ""}>${item.name}</option>' +
                                 	'</c:forEach>' +
                                 	'<input type="hidden" name="ProductId" value="'+data.productId+'"/>' +
                                 	'<input type="hidden" name="Id" value="'+data.id+'"/>' +
