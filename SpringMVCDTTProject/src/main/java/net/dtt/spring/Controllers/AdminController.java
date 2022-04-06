@@ -94,4 +94,14 @@ public class AdminController {
 		 model.addAttribute("alert", "Sửa thất bại");
 		return "redirect:/Admin/";
 	 }
+	 
+	 @RequestMapping(value = "/DeleteProduct", method = RequestMethod.POST)
+	 public String DeleteProduct(Model model, HttpServletRequest request, @RequestParam("prodId") int prodId) {
+		 
+		 if(_service.UpdateStatusProduct(prodId)) {
+			 
+		 }
+		 
+		 return "redirect:/Admin/";
+	 }
 }

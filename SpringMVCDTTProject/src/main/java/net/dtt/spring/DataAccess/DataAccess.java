@@ -42,13 +42,13 @@ public class DataAccess implements IDataAccess {
 	public List<ProductDaoModel> GetProductByNumber(int offset, int amount, String[] cateId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		String query = "From ProductDaoModel P";
+		String query = "From ProductDaoModel P WHERE P.productDetail.status = 0";
 		
 		if(cateId != null && cateId.length == 1) {
-			query += " WHERE P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+			query += " AND P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
 		}
 		else if(cateId != null && cateId.length > 1) {
-			query += " WHERE P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+			query += " AND P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
 			for (String idCate : cateId) {
 				query += " OR P.category.id = " + Integer.parseInt(idCate.replaceAll("\\s+",""));
 			}	
@@ -270,9 +270,9 @@ public class DataAccess implements IDataAccess {
 		order.setTotalPrice(TotalPrice);
 		
 		session.persist(order);
-		
-		DetailOrdersDaoModel detailOrder = new DetailOrdersDaoModel();
+	
 		for (int i = 0; i < ProductId.size(); i++) {
+			DetailOrdersDaoModel detailOrder = new DetailOrdersDaoModel();
 			System.out.println("================= " + ProductId.get(i));
 			detailOrder.setOrder(session.load(OrdersDaoModel.class, OrderId));
 			detailOrder.setProduct(session.load(ProductDaoModel.class, ProductId.get(i)));
@@ -283,5 +283,21 @@ public class DataAccess implements IDataAccess {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public boolean UpdateProductStatus(int ProdId) {
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ProductDetailDaoModel product = session.load(ProductDetailDaoModel.class, ProdId);
+			product.setStatus(-1);
+			
+			session.update(product);
+			
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 }

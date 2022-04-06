@@ -65,11 +65,11 @@
 			<div class="profile">
 				<img src="./img/avt.jpg" alt="">
 				<ul class="profile-link">
-					<li><a href="#"><i class='bx bxs-user-circle icon'></i>
-							Hồ sơ</a></li>
+					<li><a href="#"><i class='bx bxs-user-circle icon'></i> Hồ
+							sơ</a></li>
 					<li><a href="#"><i class='bx bxs-cog'></i> Cài đặt</a></li>
-					<li><a href="#"><i class='bx bxs-log-out-circle'></i>
-							Đăng xuất</a></li>
+					<li><a href="#"><i class='bx bxs-log-out-circle'></i> Đăng
+							xuất</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -120,7 +120,8 @@
 										<i class='bx bx-edit-alt'></i>
 									</button>
 									<button type="button" class="btn-delete" data-toggle="modal"
-										data-target="#modalDel">
+										data-target="#modalDel"
+										onclick=(deleteProduct(${item.productDetail.id}))>
 										<i class='bx bx-trash'></i>
 									</button>
 								</td>
@@ -203,22 +204,24 @@
 
 			<div class="modal fade" id="modalDel" role="dialog">
 				<div class="modal-dialog">
-
-					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Xóa sản phẩm</h4>
+					<form method="POST" action="DeleteProduct">
+						<!-- Modal content-->
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Xóa sản phẩm</h4>
+							</div>
+							<div class="modal-body">
+								<p>Bạn có chắc chắn muốn xóa sản phẩm này ?</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">Hủy</button>
+								<input type="hidden" name="prodId" id="prodIdDelete" value="">
+								<input type="submit" class="btn btn-primary" value="Đồng ý" />
+							</div>
 						</div>
-						<div class="modal-body">
-							<p>Bạn có chắc chắn muốn xóa sản phẩm này ?</p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-							<button type="button" class="btn btn-primary"
-								data-dismiss="modal">Đồng ý</button>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 			<div class="modal fade" id="modalEdit" role="dialog">
@@ -226,7 +229,8 @@
 
 					<!-- Modal content-->
 					<div class="modal-content">
-						<form method="POST" action="UpdateProduct" modelAttribute="Product">
+						<form method="POST" action="UpdateProduct"
+							modelAttribute="Product">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 								<h4 class="modal-title">Cập nhật sản phẩm</h4>
@@ -235,7 +239,8 @@
 								<!-- load by ajax -->
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+								<button type="button" class="btn btn-danger"
+									data-dismiss="modal">Hủy</button>
 								<input type="submit" class="btn btn-primary" value="Cập nhật" />
 							</div>
 						</form>
@@ -254,7 +259,7 @@
 				  dataType:"jsonp",
 				  url: '../Admin/GetProductJson?prodId=' + prodId,
 				  complete: function (data) {
-					  data = JSON.parse(data.responseText);				  
+					  data = JSON.parse(data.responseText);
 	    		    	var updateContent = 
 	    		    		'<div class="modal-body-left">' +
 	                    		'<p>Tên sản phẩm</p>' +
@@ -268,9 +273,9 @@
 	                            '<p>Ảnh phụ đại diện sản phẩm</p>' + 
 	                            '<input type="text" placeholder="Link ảnh phụ" name="Img_hover" class="form-control my-3 p-4" value="'+data.img_Hover+'">' +
 	                        	'<p>Nhà sản xuất</p>' +
-                                '<select class="form-control my-3 p-4" name="ManufactorsId">' + 
+                                '<select id="manufactorSelect" class="form-control my-3 p-4" name="ManufactorsId">' + 
                                 	'<c:forEach var="item" items="${All_Manufactors}" varStatus="status">' +
-                                	    '<option value="${item.id}" ${data.manufactorId == item.id ? "selected" : ""}>${item.name}</option>' +
+										 '<option value="${item.id}">${item.name}</option>' +
                                 	'</c:forEach>' +
                                 '</select>' +
 	                            '</div>' +
@@ -286,9 +291,9 @@
                             	'<p>Số lượng</p>' +
                             	'<input type="text" placeholder="Số lượng" class="form-control my-3 p-4" value="0">' +
 	                        	'<p>Nhà sản xuất</p>' +
-                                '<select class="form-control my-3 p-4" name="CategoryId">' + 
+                                '<select id="categorySelect" class="form-control my-3 p-4" name="CategoryId">' + 
                                 	'<c:forEach var="item" items="${All_Category}" varStatus="status">' +
-                                	    '<option value="${item.id}" ${data.categoryId == item.id ? "selected" : ""}>${item.name}</option>' +
+										 '<option value="${item.id}">${item.name}</option>' +	
                                 	'</c:forEach>' +
                                 	'<input type="hidden" name="ProductId" value="'+data.productId+'"/>' +
                                 	'<input type="hidden" name="Id" value="'+data.id+'"/>' +
@@ -296,9 +301,15 @@
                         	'</div>';
 	                   		
 	    		    	$("#updateContent").html(updateContent);
+	    		    	$("#categorySelect").val(data.categoryId);
+	    		    	$("#manufactorSelect").val(data.manufactorId);
 				  }
 			});	
 		}
+	
+	function deleteProduct(id){
+		$("#prodIdDelete").val(id);
+	}
 	</script>
 
 	<link rel="stylesheet"

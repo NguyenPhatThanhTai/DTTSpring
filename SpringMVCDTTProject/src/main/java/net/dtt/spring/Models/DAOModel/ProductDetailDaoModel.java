@@ -26,6 +26,7 @@ public class ProductDetailDaoModel implements Serializable {
 	private String Img_Detail3;
 	private String Img_Detail4;
 	private int QuantityInShop;
+	private int Status;
 	private ProductDaoModel product;
 	
 	public ProductDetailDaoModel() {
@@ -34,7 +35,7 @@ public class ProductDetailDaoModel implements Serializable {
 	
 	public ProductDetailDaoModel(int id, String name, String description, Float price, String img_Cover,
 			String img_Hover, String img_Detail1, String img_Detail2, String img_Detail3, String img_Detail4,
-			int quantityInShop, ProductDaoModel product) {
+			int quantityInShop, int status, ProductDaoModel product) {
 		this.Id = id;
 		this.Name = name;
 		this.Description = description;
@@ -46,6 +47,7 @@ public class ProductDetailDaoModel implements Serializable {
 		this.Img_Detail3 = img_Detail3;
 		this.Img_Detail4 = img_Detail4;
 		this.QuantityInShop = quantityInShop;
+		this.Status = status;
 		this.product = product;
 	}
 	
@@ -138,6 +140,15 @@ public class ProductDetailDaoModel implements Serializable {
 		QuantityInShop = quantityInShop;
 	}
 	
+	@Column(name = "status", nullable = true)
+	public int getStatus() {
+		return Status;
+	}
+
+	public void setStatus(int status) {
+		Status = status;
+	}
+
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", nullable = true)
 	public ProductDaoModel getProduct() {

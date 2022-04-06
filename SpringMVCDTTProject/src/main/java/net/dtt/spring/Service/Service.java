@@ -180,6 +180,12 @@ public class Service implements IService {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean UpdateStatusProduct(int ProdId) {
+		
+		return _dataAccess.UpdateProductStatus(ProdId);
+	}
 }
 
 
