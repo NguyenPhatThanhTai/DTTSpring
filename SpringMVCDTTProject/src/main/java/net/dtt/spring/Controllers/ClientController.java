@@ -38,6 +38,8 @@ import net.dtt.spring.Models.ViewModels.RegisterRequestModel;
 import net.dtt.spring.Models.ViewModels.ResponseModel;
 import net.dtt.spring.Models.ViewModels.SendCommentRequestModel;
 import net.dtt.spring.Service.IService;
+import net.dtt.spring.ServiceDTO.MailDTO;
+import net.dtt.spring.entity.Test;
 
 @Controller
 public class ClientController {
@@ -53,6 +55,9 @@ public class ClientController {
 		 model.addAttribute("list_category", ListCategory);
 		 model.addAttribute("list_product_recomment", listProductRecomment);
 		 //model.addAttribute("list_bestSeller_product", ListBestSellerProduct);
+		 
+		 MailDTO mail = new MailDTO();
+		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", "<img src=\"https://toigingiuvedep.vn/wp-content/uploads/2021/06/hinh-anh-suy-tu-1.jpg\"  width=\"500\" height=\"600\">");
 		 
 	     return "/Client/HomePage";
 	 }
