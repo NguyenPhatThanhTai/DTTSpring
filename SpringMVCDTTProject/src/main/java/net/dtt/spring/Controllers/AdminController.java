@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.dtt.spring.Enum.EnumClass;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
+import net.dtt.spring.Models.ViewModels.AddCategoryRequestModel;
+import net.dtt.spring.Models.ViewModels.AddManufactorRequestModel;
 import net.dtt.spring.Models.ViewModels.AddProductRequestModel;
+import net.dtt.spring.Models.ViewModels.CategoryViewModel;
 import net.dtt.spring.Models.ViewModels.CommentViewModel;
 import net.dtt.spring.Models.ViewModels.DetailProductViewModel;
 import net.dtt.spring.Models.ViewModels.LoginRequestModel;
+import net.dtt.spring.Models.ViewModels.ManufactorViewModel;
 import net.dtt.spring.Service.IService;
 
 @Controller
@@ -103,5 +107,87 @@ public class AdminController {
 		 }
 		 
 		 return "redirect:/Admin/";
+	 }
+	 
+	 @RequestMapping(value = "/ManufactorManagment", method = RequestMethod.GET)
+	 public String ManufactorPage(Model model, HttpServletRequest request) {
+		 model.addAttribute("List_Manufactor", _service.getAllManufacturers());
+		 
+		 return "/Admin/ManufactorManagment";
+	 }
+	 
+	 @RequestMapping(value = "/AddManufactor", method = RequestMethod.POST)
+	 public String AddManufactor(Model model, HttpServletRequest request, @ModelAttribute("AddManufactor")AddManufactorRequestModel manufactor) {
+		 if(_service.AddManufactor(manufactor.getName()))
+			 model.addAttribute("alert", "Thêm thành công");
+		 model.addAttribute("alert", "Thêm thất bại");
+		 
+		 return "redirect:/Admin/ManufactorManagment";
+	 }
+	 
+	 @RequestMapping(value = "/GetManufactorJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody ManufactorViewModel GetManufactorJson(Model model, HttpServletRequest request,@RequestParam(value="manufactorId") int id) {
+		 var manufactor = _service.GetManufactor(id);
+		 
+		 return new ManufactorViewModel(manufactor.getId(), manufactor.getName());
+	 }
+	 
+	 @RequestMapping(value = "/UpdateManufactor", method = RequestMethod.POST)
+	 public String UpdateManufactor(Model model, HttpServletRequest request, @ModelAttribute("UpdateManufactor")AddManufactorRequestModel manufactor) {
+		 if(_service.UpdateManufactor(manufactor.getId(), manufactor.getName()))
+			 model.addAttribute("alert", "Sửa thành công");
+		 model.addAttribute("alert", "Sửa thất bại");
+		 
+		 return "redirect:/Admin/ManufactorManagment";
+	 }
+	 
+	 @RequestMapping(value = "/DeleteManufactor", method = RequestMethod.POST)
+	 public String DeleteManufactor(Model model, HttpServletRequest request, @RequestParam("manufactorId") int id) {
+		 if(_service.DeleteManufactor(id))
+			 model.addAttribute("alert", "Xóa thành công");
+		 model.addAttribute("alert", "Xóa thất bại");
+		 
+		 return "redirect:/Admin/ManufactorManagment";
+	 }
+	 
+	 @RequestMapping(value = "/CategoryManagment", method = RequestMethod.GET)
+	 public String CategoryPage(Model model, HttpServletRequest request) {
+		 model.addAttribute("List_Category", _service.getAllCategory());
+		 
+		 return "/Admin/CategoryManagment";
+	 }
+	 
+	 @RequestMapping(value = "/AddCategory", method = RequestMethod.POST)
+	 public String AddCategory(Model model, HttpServletRequest request, @ModelAttribute("AddCategory")AddCategoryRequestModel category) {
+		 if(_service.AddCategory(category.getName()))
+			 model.addAttribute("alert", "Thêm thành công");
+		 model.addAttribute("alert", "Thêm thất bại");
+		 
+		 return "redirect:/Admin/CategoryManagment";
+	 }
+	 
+	 @RequestMapping(value = "/GetCategoryJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody CategoryViewModel GetCategoryJson(Model model, HttpServletRequest request,@RequestParam(value="categoryId") int id) {
+		 var category = _service.GetCategory(id);
+		 
+		 return new CategoryViewModel(category.getId(), category.getName());
+	 }
+	 
+	 @RequestMapping(value = "/UpdateCategory", method = RequestMethod.POST)
+	 public String UpdateCategory(Model model, HttpServletRequest request, @ModelAttribute("UpdateCategory")AddCategoryRequestModel category) {
+		 if(_service.UpdateCategory(category.getId(), category.getName()))
+			 model.addAttribute("alert", "Sửa thành công");
+		 model.addAttribute("alert", "Sửa thất bại");
+		 
+		 return "redirect:/Admin/CategoryManagment";
+	 }
+	 
+	 @RequestMapping(value = "/DeleteCategory", method = RequestMethod.POST)
+	 public String DeleteCategoryr(Model model, HttpServletRequest request, @RequestParam("categoryId") int id) {
+		 if(_service.DeleteCategory(id))
+			 model.addAttribute("alert", "Xóa thành công");
+		 model.addAttribute("alert", "Xóa thất bại");
+		 
+		 return "redirect:/Admin/CategoryManagment";
 	 }
 }

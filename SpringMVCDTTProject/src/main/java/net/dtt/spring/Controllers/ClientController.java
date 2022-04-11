@@ -56,8 +56,8 @@ public class ClientController {
 		 model.addAttribute("list_product_recomment", listProductRecomment);
 		 //model.addAttribute("list_bestSeller_product", ListBestSellerProduct);
 		 
-		 MailDTO mail = new MailDTO();
-		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", "<img src=\"https://toigingiuvedep.vn/wp-content/uploads/2021/06/hinh-anh-suy-tu-1.jpg\"  width=\"500\" height=\"600\">");
+//		 MailDTO mail = new MailDTO();
+//		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", "<img src=\"https://toigingiuvedep.vn/wp-content/uploads/2021/06/hinh-anh-suy-tu-1.jpg\"  width=\"500\" height=\"600\">");
 		 
 	     return "/Client/HomePage";
 	 }

@@ -19,6 +19,7 @@ import net.dtt.spring.entity.Two;
 public class CategoryDaoModel implements Serializable {
 	private int Id;
 	private String Name;
+	private int Status;
 	private Set<ProductDaoModel> Product = new HashSet<ProductDaoModel>();
 
 	public CategoryDaoModel() {
@@ -30,10 +31,11 @@ public class CategoryDaoModel implements Serializable {
 		this.Name = name;
 	}
 	
-	public CategoryDaoModel(int id, String name, Set<ProductDaoModel> product) {
+	public CategoryDaoModel(int id, String name, int status, Set<ProductDaoModel> product) {
 		Id = id;
 		Name = name;
 		Product = product;
+		Status = status;
 	}
 	
 	@Id
@@ -51,6 +53,14 @@ public class CategoryDaoModel implements Serializable {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+	
+	@Column(name = "status", length = 1, nullable = false)
+	public int getStatus() {
+		return Status;
+	}
+	public void setStatus(int status) {
+		Status = status;
 	}
 	
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

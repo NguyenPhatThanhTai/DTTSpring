@@ -186,6 +186,58 @@ public class Service implements IService {
 		
 		return _dataAccess.UpdateProductStatus(ProdId);
 	}
+
+	@Override
+	public boolean AddManufactor(String Name) {
+		Calendar calendar = Calendar.getInstance();
+		int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+		
+		return _dataAccess.AddManufactor(id, Name);
+	}
+
+	@Override
+	public boolean DeleteManufactor(int Id) {
+		
+		return _dataAccess.DeleteManufactor(Id);
+	}
+
+	@Override
+	public boolean UpdateManufactor(int Id, String Name) {
+
+		return  _dataAccess.UpdateManufactor(Id, Name);
+	}
+
+	@Override
+	public ManufacturersDaoModel GetManufactor(int Id) {
+
+		return _dataAccess.getDetailManufactor(Id);
+	}
+
+	@Override
+	public boolean AddCategory(String Name) {
+		Calendar calendar = Calendar.getInstance();
+		int id = calendar.get(Calendar.MONTH) + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.SECOND) + calendar.get(Calendar.MILLISECOND);
+		
+		return _dataAccess.AddCategory(id, Name);
+	}
+
+	@Override
+	public boolean DeleteCategory(int Id) {
+
+		return _dataAccess.DeleteCategory(Id);
+	}
+
+	@Override
+	public boolean UpdateCategory(int Id, String Name) {
+
+		return _dataAccess.UpdateCategory(Id, Name);
+	}
+
+	@Override
+	public CategoryDaoModel GetCategory(int Id) {
+
+		return _dataAccess.getDetailCategory(Id);
+	}
 }
 
 

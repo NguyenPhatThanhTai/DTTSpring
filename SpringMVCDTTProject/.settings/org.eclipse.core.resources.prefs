@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java/net/dtt/spring/Controllers/AdminController.java=UTF-8
 encoding//src/main/java/net/dtt/spring/Controllers/ClientController.java=UTF-8
 encoding//src/main/webapp/Resource/CSS/product-detail.css=UTF-8
+encoding//src/main/webapp/WEB-INF/Views/Admin/ManufactorManagment.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/Views/Admin/ProductManagment.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/Views/Client/AllProducts.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/Views/Client/DetailProduct.jsp=UTF-8

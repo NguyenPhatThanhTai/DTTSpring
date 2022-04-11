@@ -15,6 +15,10 @@ public interface IService {
 	public List<ProductDaoModel> GetBestSellerProduct(int amount);
 	public List<ProductDaoModel> GetRecommentProduct(int amount);
 	public List<CategoryDaoModel> getAllCategory();
+	public boolean AddCategory(String Name);
+	public boolean DeleteCategory(int Id);
+	public boolean UpdateCategory(int Id, String Name);
+	public CategoryDaoModel GetCategory(int Id);
 	public ProductDaoModel GetDetailproduct(int productId);
 	public List<ProductDaoModel> GetAllProduct(int offset, String[] cateId);
 	public int CountProduct();
@@ -27,6 +31,10 @@ public interface IService {
 	public CustomerDaoModel GetUserByEmail(String email);
 	public boolean CheckLoginAdmin(String Email, String Password);
 	public List<ManufacturersDaoModel> getAllManufacturers();
+	public boolean AddManufactor(String Name);
+	public boolean DeleteManufactor(int Id);
+	public boolean UpdateManufactor(int Id, String Name);
+	public ManufacturersDaoModel GetManufactor(int Id);
 	public boolean AddProduct(int manufactorId, int categoryId, String productName,
 			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
 			String img_detail3, String img_detail4);

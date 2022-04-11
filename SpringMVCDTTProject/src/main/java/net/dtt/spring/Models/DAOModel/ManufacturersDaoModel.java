@@ -17,6 +17,7 @@ import javax.persistence.Table;
 public class ManufacturersDaoModel implements Serializable {
 	private int Id;
 	private String Name;
+	private int Status;
 	private Set<ProductDaoModel> Product = new HashSet<ProductDaoModel>();
 
 	public ManufacturersDaoModel() {
@@ -28,10 +29,11 @@ public class ManufacturersDaoModel implements Serializable {
 		this.Name = name;
 	}
 	
-	public ManufacturersDaoModel(int id, String name, Set<ProductDaoModel> product) {
+	public ManufacturersDaoModel(int id, String name, int status, Set<ProductDaoModel> product) {
 		Id = id;
 		Name = name;
 		Product = product;
+		Status = status;
 	}
 	
 	@Id
@@ -49,6 +51,14 @@ public class ManufacturersDaoModel implements Serializable {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+	
+	@Column(name = "Status", length = 1, nullable = false)
+	public int getStatus() {
+		return Status;
+	}
+	public void setStatus(int status) {
+		Status = status;
 	}
 	
 	@OneToMany(mappedBy = "manufacturers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

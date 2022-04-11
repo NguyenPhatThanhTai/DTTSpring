@@ -33,7 +33,7 @@ public class DataAccess implements IDataAccess {
 	public List<CategoryDaoModel> GetAllCategory() {
 		Session session = this.sessionFactory.getCurrentSession();
 
-		List<CategoryDaoModel> list = session.createQuery("From CategoryDaoModel").list();
+		List<CategoryDaoModel> list = session.createQuery("From CategoryDaoModel C WHERE C.status = 0").list();
 		
 	    return list;
 	}
@@ -176,7 +176,7 @@ public class DataAccess implements IDataAccess {
 		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			
-			List<ManufacturersDaoModel> manufactors = session.createQuery("FROM ManufacturersDaoModel").list();
+			List<ManufacturersDaoModel> manufactors = session.createQuery("FROM ManufacturersDaoModel M WHERE M.status = 0").list();
 			return manufactors;
 		}
 		catch (Exception e) {
@@ -189,7 +189,7 @@ public class DataAccess implements IDataAccess {
 	public boolean AddProduct(int productId, int manufactorId, int categoryId, int detailProductId, String productName,
 			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
 			String img_detail3, String img_detail4) {
-//		try {
+		try {
 			Session session = this.sessionFactory.getCurrentSession();
 			
 			ProductDaoModel product = new ProductDaoModel();
@@ -216,9 +216,9 @@ public class DataAccess implements IDataAccess {
 			session.persist(productDetail);
 			
 			return true;
-//		}catch (Exception e) {
-//			return false;
-//		}
+		}catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -300,4 +300,141 @@ public class DataAccess implements IDataAccess {
 			return false;
 		}
 	}
+
+	@Override
+	public boolean AddManufactor(int Id, String Name) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ManufacturersDaoModel manufactor = new ManufacturersDaoModel();
+			manufactor.setId(Id);
+			manufactor.setName(Name);
+			
+			session.persist(manufactor);
+			
+			return true;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+	}
+
+	@Override
+	public boolean DeleteManufactor(int Id) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ManufacturersDaoModel manufactor = session.load(ManufacturersDaoModel.class, Id);
+			manufactor.setStatus(-1);
+			
+			session.update(manufactor);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
+
+	@Override
+	public boolean UpdateManufactor(int Id, String Name) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ManufacturersDaoModel manufactor = session.load(ManufacturersDaoModel.class, Id);
+			manufactor.setName(Name);
+			
+			session.update(manufactor);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
+
+	@Override
+	public ManufacturersDaoModel getDetailManufactor(int id) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			ManufacturersDaoModel manufactor = (ManufacturersDaoModel) session.createQuery("From ManufacturersDaoModel P WHERE P.id = " + id).getSingleResult();
+			
+			return manufactor;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+	}
+
+	@Override
+	public boolean AddCategory(int Id, String Name) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CategoryDaoModel category = new CategoryDaoModel();
+			category.setId(Id);
+			category.setName(Name);
+			
+			session.persist(category);
+			
+			return true;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+	}
+
+	@Override
+	public boolean DeleteCategory(int Id) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CategoryDaoModel category = session.load(CategoryDaoModel.class, Id);
+			category.setStatus(-1);
+			
+			session.update(category);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
+
+	@Override
+	public boolean UpdateCategory(int Id, String Name) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CategoryDaoModel category = session.load(CategoryDaoModel.class, Id);
+			category.setName(Name);
+			
+			session.update(category);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
+
+	@Override
+	public CategoryDaoModel getDetailCategory(int id) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CategoryDaoModel category = (CategoryDaoModel) session.createQuery("From CategoryDaoModel C WHERE C.id = " + id).getSingleResult();
+			
+			return category;
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+	}
 }
+
+
+
+
+
+
+
+
+

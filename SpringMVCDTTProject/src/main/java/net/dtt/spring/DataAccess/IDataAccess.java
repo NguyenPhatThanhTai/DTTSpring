@@ -17,6 +17,10 @@ import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
 public interface IDataAccess {
 	public List<CategoryDaoModel> GetAllCategory();
+	public boolean AddCategory(int Id, String Name);
+	public boolean DeleteCategory(int Id);
+	public boolean UpdateCategory(int Id, String Name);
+	public CategoryDaoModel getDetailCategory(int id);
 	public List<ProductDaoModel> GetProductByNumber(int offset, int amount, String[] cateId);
 	public ProductDaoModel GetDetailProduct(int productId);
 	public int CountProduct();
@@ -27,6 +31,10 @@ public interface IDataAccess {
 	public CustomerDaoModel GetUserOfId(int userId);
 	public AdminDaoModel GetUserAdmin(String Email);
 	public List<ManufacturersDaoModel> getAllManufacturers();
+	public boolean AddManufactor(int Id, String Name);
+	public boolean DeleteManufactor(int Id);
+	public boolean UpdateManufactor(int Id, String Name);
+	public ManufacturersDaoModel getDetailManufactor(int id);
 	public boolean AddProduct(int productId, int manufactorId, int categoryId, int detailProductId, String productName, 
 			String description, float price, String img_cover, String img_hover, String img_detail1, String img_detail2,
 			String img_detail3, String img_detail4);
