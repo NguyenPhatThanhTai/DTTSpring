@@ -428,6 +428,40 @@ public class DataAccess implements IDataAccess {
 //			return null;
 //		}
 	}
+
+	@Override
+	public List<CustomerDaoModel> getAllCustomer() {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			var ListCustomer = session.createQuery("From CustomerDaoModel C WHERE C.status = 0").list();
+			
+			return ListCustomer;
+			
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//			return null;
+//		}
+	}
+
+	@Override
+	public boolean DeleteCustomer(int id) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			CustomerDaoModel cus = session.load(CustomerDaoModel.class, id);
+			cus.setStatus(-1);
+			
+			session.update(cus);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
+	
+	
 }
 
 

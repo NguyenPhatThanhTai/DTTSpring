@@ -190,4 +190,32 @@ public class AdminController {
 		 
 		 return "redirect:/Admin/CategoryManagment";
 	 }
+	 
+	 @RequestMapping(value = "/CustomerManagment", method = RequestMethod.GET)
+	 public String CustomerManagment(Model model, HttpServletRequest request) {
+		 model.addAttribute("list_customer", _service.GetCustomer());
+		 
+		 return "/Admin/CustomerManagment";
+	 }
+	 
+	 @RequestMapping(value = "/DeleteCustomer", method = RequestMethod.POST)
+	 public String DeleteCustomer(Model model, HttpServletRequest request, @RequestParam("customerId") int id) {
+		 if(_service.DeleteCustomer(id)) {
+			 model.addAttribute("alert", "Xóa thành công");
+		 }
+		 model.addAttribute("alert", "Xóa thất bại");
+		 return "redirect:/Admin/CustomerManagment";
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 }

@@ -1,5 +1,6 @@
 package net.dtt.spring.Controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -238,6 +239,12 @@ public class ClientController {
 	 
 	 @RequestMapping(value = "/Register", method = RequestMethod.POST)
 	 public String RegisterPagePost(Model model, HttpServletRequest request, @ModelAttribute("RegisterRequest")RegisterRequestModel user) {
+		 try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 if(_service.AddUser(user.getName(), 0, user.getBirthDay(), user.getEmail(), 
 				 user.getToken(), user.getPhone(), user.getAddress())) {
 			 return "redirect:/";
@@ -259,9 +266,8 @@ public class ClientController {
 	 
 	 @RequestMapping(value = "/CheckOut", method = RequestMethod.POST)
 	 public String CheckOut(Model model, HttpServletRequest request, @ModelAttribute("CheckOut")CheckOutCardRequestModel cart) {
-		 
 		 if(_service.CheckOutCard(cart.getProductId(), cart.getQuantity(), cart.getNameReceive(), 
-				 cart.getPhoneReceive(), cart.getAddressReceive(), cart.getNote(), 1, Float.parseFloat(cart.getTotalPrice()), Integer.parseInt(cart.getCustomerId()))) {
+				 cart.getPhoneReceive(), cart.getAddressReceive() + " " + cart.getDistrict() + " " + cart.getCity().split("-")[1], cart.getNote(), 1, Float.parseFloat(cart.getTotalPrice()), Integer.parseInt(cart.getCustomerId()))) {
 			 return "/Client/CheckOutSuccess";
 		 }
 		 

@@ -26,6 +26,7 @@ public class CustomerDaoModel implements Serializable {
 	private String Token;
 	private String Phone;
 	private String Address;
+	private int Status;
 	private Set<CommentProductDaoModel> commentProduct = new HashSet<CommentProductDaoModel>();
 	private Set<OrdersDaoModel> orderDao = new HashSet<OrdersDaoModel>();
 	
@@ -34,7 +35,7 @@ public class CustomerDaoModel implements Serializable {
 	}
 	
 	public CustomerDaoModel(int id, String name, int gender, Date birthDay, String email, String token, String phone,
-			String address, Set<CommentProductDaoModel> commentProduct, Set<OrdersDaoModel> orderDao) {
+			String address, int status, Set<CommentProductDaoModel> commentProduct, Set<OrdersDaoModel> orderDao) {
 		this.Id = id;
 		this.Name = name;
 		this.Gender = gender;
@@ -45,6 +46,7 @@ public class CustomerDaoModel implements Serializable {
 		this.Address = Address;
 		this.commentProduct = commentProduct;
 		this.orderDao = orderDao;
+		this.Status = status;
 	}
 	
 	@Id
@@ -110,6 +112,14 @@ public class CustomerDaoModel implements Serializable {
 	}
 	public void setAddress(String address) {
 		this.Address = address;
+	}
+	
+	@Column(name = "status", nullable = false)
+	public int getStatus() {
+		return this.Status;
+	}
+	public void setStatus(int status) {
+		this.Status = status;
 	}
 	
 	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

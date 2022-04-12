@@ -44,4 +44,6 @@ public interface IService {
 	public boolean CheckOutCard(List<Integer> ProductId, List<Integer> Quantity, String Name,
 			String Phone, String Address, String Note, int Status, Float TotalPrice, int CustomerId);
 	public boolean UpdateStatusProduct(int ProdId);
+	public List<CustomerDaoModel> GetCustomer();
+	public boolean DeleteCustomer(int id);
 }

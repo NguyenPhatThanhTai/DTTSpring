@@ -10,6 +10,8 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<request-character-encoding>UTF-8</request-character-encoding>
 
 	<servlet-mapping>
 		<servlet-name>spring-mvc</servlet-name>

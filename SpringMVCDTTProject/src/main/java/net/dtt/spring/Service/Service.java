@@ -238,6 +238,16 @@ public class Service implements IService {
 
 		return _dataAccess.getDetailCategory(Id);
 	}
+
+	@Override
+	public List<CustomerDaoModel> GetCustomer() {
+		return _dataAccess.getAllCustomer();
+	}
+
+	@Override
+	public boolean DeleteCustomer(int id) {
+		return _dataAccess.DeleteCustomer(id);
+	}
 }
 
 

@@ -1,11 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DTT Store</title>
 <!-- google font -->
@@ -209,16 +209,16 @@
     			    data = JSON.parse(data.responseText);
     			    listCity = data;
     			    listCity.forEach((x) =>{
-						$("#country").append('<option class="city" value="'+x.code+'">'+x.name+'</option>')
+						$("#country").append('<option class="city" value="'+x.code+'-'+x.name+'">'+x.name+'</option>')
 					})
 				}
     		  })
     		  
     		  $("#country").on("change", function(){
     			    $("#state").html("");
-			    	var state = listCity.find(y => y.code == $(this).val());
+			    	var state = listCity.find(y => y.code == $(this).val().split("-")[0]);
 			    	state.districts.forEach((x) =>{
-						$("#state").append('<option class="state" value="'+x.code+'">'+x.name+'</option>')
+						$("#state").append('<option class="state" value="'+x.name+'">'+x.name+'</option>')
 					})
     		  })
     		  

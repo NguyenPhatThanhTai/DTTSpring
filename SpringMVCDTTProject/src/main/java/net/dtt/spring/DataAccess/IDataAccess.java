@@ -44,4 +44,6 @@ public interface IDataAccess {
 	public boolean SaveCart(int OrderId, List<Integer> ProductId, List<Integer> Quantity, Date OrderDate, String Name, String Phone, String Address, String Note, int Status,
 			Float TotalPrice, int CustomerId);
 	public boolean UpdateProductStatus(int ProdId);
+	public List<CustomerDaoModel> getAllCustomer();
+	public boolean DeleteCustomer(int id);
 }

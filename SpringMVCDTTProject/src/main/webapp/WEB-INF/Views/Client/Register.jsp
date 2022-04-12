@@ -1,11 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+         pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DTT Store</title>
 <!-- google font -->
@@ -44,7 +44,7 @@
 					<h1 class="font-weight-bold py-3">DTT Store</h1>
 					<h4>Đăng ký ngay</h4>
 					<form method="POST" action="Register"
-						modelAttribute="RegisterRequest">
+						modelAttribute="RegisterRequest" accept-charset="utf-8">
 						<div class="form-row">
 							<div class="col-lg-7">
 								<input type="email" name="Email" placeholder="Địa chỉ Email"
