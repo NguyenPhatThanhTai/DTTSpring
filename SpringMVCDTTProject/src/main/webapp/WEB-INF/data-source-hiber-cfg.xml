@@ -10,7 +10,7 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/balo_shop" />
+			value="jdbc:mysql://localhost:3306/balo_shop?zeroDateTimeBehavior=convertToNull" />
 		<property name="username" value="root" />
 	</bean>
 
