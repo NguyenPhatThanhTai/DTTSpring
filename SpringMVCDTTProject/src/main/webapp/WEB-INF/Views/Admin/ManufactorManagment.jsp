@@ -10,6 +10,8 @@
 	rel='stylesheet'>
 <link rel="stylesheet"
 	href="<c:url value="/resources/CSS/baloCRUD.css" />">
+	<link rel="stylesheet"
+	href="<c:url value="/resources/CSS/styleAdmin.css" />">
 <!-- bootstrap -->
 <!-- icon -->
 <link rel="icon" href="../admin/img/TTDStore_logo.png">

@@ -460,6 +460,34 @@ public class DataAccess implements IDataAccess {
 //			return false;
 //		}
 	}
+
+	@Override
+	public List<OrdersDaoModel> GetAllOrder() {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();	
+			
+			var ListOrder = session.createQuery("From OrdersDaoModel").list();
+			
+			return ListOrder;
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			return null;
+//		}
+	}
+
+	@Override
+	public OrdersDaoModel GetOrderById(int OrderId) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			OrdersDaoModel Orders = (OrdersDaoModel) session.createQuery("From OrdersDaoModel O WHERE O.id = " + OrderId).getSingleResult();
+			
+			return Orders;
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		return null;
+//	}
+	}
 	
 	
 }

@@ -46,4 +46,6 @@ public interface IDataAccess {
 	public boolean UpdateProductStatus(int ProdId);
 	public List<CustomerDaoModel> getAllCustomer();
 	public boolean DeleteCustomer(int id);
+	public List<OrdersDaoModel> GetAllOrder();
+	public OrdersDaoModel GetOrderById(int OrderId);
 }

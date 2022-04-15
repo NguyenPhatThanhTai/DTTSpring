@@ -20,6 +20,7 @@ import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ManufacturersDaoModel;
+import net.dtt.spring.Models.DAOModel.OrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
@@ -247,6 +248,16 @@ public class Service implements IService {
 	@Override
 	public boolean DeleteCustomer(int id) {
 		return _dataAccess.DeleteCustomer(id);
+	}
+
+	@Override
+	public List<OrdersDaoModel> GetAllOrder() {
+		return _dataAccess.GetAllOrder();
+	}
+
+	@Override
+	public OrdersDaoModel GetOrderById(int OrderId) {
+		return _dataAccess.GetOrderById(OrderId);
 	}
 }
 

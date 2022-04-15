@@ -8,6 +8,7 @@ import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
 import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ManufacturersDaoModel;
+import net.dtt.spring.Models.DAOModel.OrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 
@@ -46,4 +47,6 @@ public interface IService {
 	public boolean UpdateStatusProduct(int ProdId);
 	public List<CustomerDaoModel> GetCustomer();
 	public boolean DeleteCustomer(int id);
+	public List<OrdersDaoModel> GetAllOrder();
+	public OrdersDaoModel GetOrderById(int OrderId);
 }

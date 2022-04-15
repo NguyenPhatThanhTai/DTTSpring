@@ -1,6 +1,7 @@
 package net.dtt.spring.Controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.dtt.spring.Enum.EnumClass;
+import net.dtt.spring.Models.DAOModel.DetailOrdersDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.Models.ViewModels.AddCategoryRequestModel;
@@ -22,9 +24,11 @@ import net.dtt.spring.Models.ViewModels.AddManufactorRequestModel;
 import net.dtt.spring.Models.ViewModels.AddProductRequestModel;
 import net.dtt.spring.Models.ViewModels.CategoryViewModel;
 import net.dtt.spring.Models.ViewModels.CommentViewModel;
+import net.dtt.spring.Models.ViewModels.DetailOrderViewModel;
 import net.dtt.spring.Models.ViewModels.DetailProductViewModel;
 import net.dtt.spring.Models.ViewModels.LoginRequestModel;
 import net.dtt.spring.Models.ViewModels.ManufactorViewModel;
+import net.dtt.spring.Models.ViewModels.OrderViewModel;
 import net.dtt.spring.Service.IService;
 
 @Controller
@@ -207,7 +211,40 @@ public class AdminController {
 		 return "redirect:/Admin/CustomerManagment";
 	 }
 	 
+	 @RequestMapping(value = "/OrderManagment", method = RequestMethod.GET)
+	 public String OrderManagmentPage(Model model, HttpServletRequest request) {
+
+		 model.addAttribute("List_Order", _service.GetAllOrder());
+		 return "/Admin/OrderManagment";
+	 }
 	 
+	 @RequestMapping(value = "/GetOrderJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody OrderViewModel GetOrderJson(Model model, HttpServletRequest request,@RequestParam(value="orderId") int id) {
+		 var order = _service.GetOrderById(id);
+		 
+		 OrderViewModel orderViewModel = new OrderViewModel();
+		 orderViewModel.setAddress(order.getAddressReceive());
+		 orderViewModel.setName(order.getNameReceive());
+		 orderViewModel.setNote(order.getNote());
+		 orderViewModel.setOrderId(order.getId());
+		 orderViewModel.setPhone(order.getPhoneReceive());
+		 orderViewModel.setStatus(order.getStatus());
+		 
+		 List<DetailOrderViewModel> detailOrders = new ArrayList<DetailOrderViewModel>();
+		 
+		 for (DetailOrdersDaoModel detailOrder : order.getDetailOrder()) {
+			 DetailOrderViewModel detail = new DetailOrderViewModel();
+			 detail.setProductId(detailOrder.getProduct().getId());
+			 detail.setProductName(detailOrder.getProduct().getProductDetail().getName());
+			 detail.setProductQuantity(detailOrder.getQuantity());
+			 
+			 detailOrders.add(detail);
+		}
+		 
+		 orderViewModel.setListOrder(detailOrders);
+		 
+		 return orderViewModel;
+	 }
 	 
 	 
 	 
