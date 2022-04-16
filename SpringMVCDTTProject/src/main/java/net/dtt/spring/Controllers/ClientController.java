@@ -57,9 +57,6 @@ public class ClientController {
 		 model.addAttribute("list_product_recomment", listProductRecomment);
 		 //model.addAttribute("list_bestSeller_product", ListBestSellerProduct);
 		 
-//		 MailDTO mail = new MailDTO();
-//		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", "<img src=\"https://toigingiuvedep.vn/wp-content/uploads/2021/06/hinh-anh-suy-tu-1.jpg\"  width=\"500\" height=\"600\">");
-		 
 	     return "/Client/HomePage";
 	 }
 	 
@@ -267,8 +264,8 @@ public class ClientController {
 	 @RequestMapping(value = "/CheckOut", method = RequestMethod.POST)
 	 public String CheckOut(Model model, HttpServletRequest request, @ModelAttribute("CheckOut")CheckOutCardRequestModel cart) {
 		 if(_service.CheckOutCard(cart.getProductId(), cart.getQuantity(), cart.getNameReceive(), 
-				 cart.getPhoneReceive(), cart.getAddressReceive() + " " + cart.getDistrict() + " " + cart.getCity().split("-")[1], cart.getNote(), 1, Float.parseFloat(cart.getTotalPrice()), Integer.parseInt(cart.getCustomerId()))) {
-			 return "/Client/CheckOutSuccess";
+				 cart.getPhoneReceive(), cart.getAddressReceive() + ", " + cart.getDistrict() + ", " + cart.getCity().split("-")[1], cart.getNote(), 1, Float.parseFloat(cart.getTotalPrice()), Integer.parseInt(cart.getCustomerId()))) {
+			 return "/Client/Thankyou";
 		 }
 		 
 		 return "/Client/order";

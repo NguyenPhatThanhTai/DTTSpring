@@ -256,33 +256,38 @@ public class DataAccess implements IDataAccess {
 	@Override
 	public boolean SaveCart(int OrderId, List<Integer> ProductId, List<Integer> Quantity, Date OrderDate, String Name,
 			String Phone, String Address, String Note, int Status, Float TotalPrice, int CustomerId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		
-		OrdersDaoModel order = new OrdersDaoModel();
-		order.setAddressReceive(Address);
-		order.setCustomer(session.load(CustomerDaoModel.class, CustomerId));
-		order.setId(OrderId);
-		order.setNameReceive(Name);
-		order.setNote(Note);
-		order.setPhoneReceive(Phone);
-		order.setStatus(Status);
-		order.setTime(OrderDate);
-		order.setTotalPrice(TotalPrice);
-		
-		session.persist(order);
-	
-		for (int i = 0; i < ProductId.size(); i++) {
-			DetailOrdersDaoModel detailOrder = new DetailOrdersDaoModel();
-			System.out.println("================= " + ProductId.get(i));
-			detailOrder.setOrder(session.load(OrdersDaoModel.class, OrderId));
-			detailOrder.setProduct(session.load(ProductDaoModel.class, ProductId.get(i)));
-			detailOrder.setQuantity(Quantity.get(i));
-			detailOrder.setSize("Null");
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
 			
-			session.persist(detailOrder);
-		}
+			OrdersDaoModel order = new OrdersDaoModel();
+			order.setAddressReceive(Address);
+			order.setCustomer(session.load(CustomerDaoModel.class, CustomerId));
+			order.setId(OrderId);
+			order.setNameReceive(Name);
+			order.setNote(Note);
+			order.setPhoneReceive(Phone);
+			order.setStatus(Status);
+			order.setTime(OrderDate);
+			order.setTotalPrice(TotalPrice);
+			
+			session.persist(order);
 		
-		return false;
+			for (int i = 0; i < ProductId.size(); i++) {
+				DetailOrdersDaoModel detailOrder = new DetailOrdersDaoModel();
+				System.out.println("================= " + ProductId.get(i));
+				detailOrder.setOrder(session.load(OrdersDaoModel.class, OrderId));
+				detailOrder.setProduct(session.load(ProductDaoModel.class, ProductId.get(i)));
+				detailOrder.setQuantity(Quantity.get(i));
+				detailOrder.setSize("Null");
+				
+				session.persist(detailOrder);
+			}
+			
+			return true;
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
 	}
 
 	@Override
@@ -488,8 +493,22 @@ public class DataAccess implements IDataAccess {
 //		return null;
 //	}
 	}
-	
-	
+
+	@Override
+	public boolean UpdateStatusOrder(int OrderId) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			OrdersDaoModel order = session.load(OrdersDaoModel.class, OrderId);
+			order.setStatus(-1);
+			
+			session.update(order);
+			
+			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+	}
 }
 
 

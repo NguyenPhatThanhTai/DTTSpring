@@ -30,6 +30,7 @@ import net.dtt.spring.Models.ViewModels.LoginRequestModel;
 import net.dtt.spring.Models.ViewModels.ManufactorViewModel;
 import net.dtt.spring.Models.ViewModels.OrderViewModel;
 import net.dtt.spring.Service.IService;
+import net.dtt.spring.ServiceDTO.MailDTO;
 
 @Controller
 @RequestMapping(value = {"/Admin"})
@@ -246,8 +247,18 @@ public class AdminController {
 		 return orderViewModel;
 	 }
 	 
-	 
-	 
+	 @RequestMapping(value = "/UpdateOrderStatus", method = RequestMethod.POST)
+	 public String UpdateOrderStatus(Model model, HttpServletRequest request, @RequestParam("OrderId") int OrderId) {
+		 
+		 MailDTO mail = new MailDTO();
+		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", _service.GetOrderById(OrderId));
+		 
+		 if(_service.UpdateOrderStatus(OrderId))
+			 model.addAttribute("alert", "Cập nhật thành công");
+		 model.addAttribute("alert", "Cập nhật thất bại");
+		 
+		 return "redirect:/Admin/OrderManagment";
+	 } 
 	 
 	 
 	 

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
+import com.fasterxml.jackson.databind.util.ArrayBuilders.BooleanBuilder;
+
 import net.dtt.spring.Models.DAOModel.AdminDaoModel;
 import net.dtt.spring.Models.DAOModel.CategoryDaoModel;
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
@@ -48,4 +50,5 @@ public interface IDataAccess {
 	public boolean DeleteCustomer(int id);
 	public List<OrdersDaoModel> GetAllOrder();
 	public OrdersDaoModel GetOrderById(int OrderId);
+	public boolean UpdateStatusOrder(int OrderId);
 }

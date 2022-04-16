@@ -259,6 +259,11 @@ public class Service implements IService {
 	public OrdersDaoModel GetOrderById(int OrderId) {
 		return _dataAccess.GetOrderById(OrderId);
 	}
+
+	@Override
+	public boolean UpdateOrderStatus(int OrderId) {
+		return _dataAccess.UpdateStatusOrder(OrderId);
+	}
 }
 
 

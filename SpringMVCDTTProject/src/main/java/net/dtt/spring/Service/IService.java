@@ -49,4 +49,5 @@ public interface IService {
 	public boolean DeleteCustomer(int id);
 	public List<OrdersDaoModel> GetAllOrder();
 	public OrdersDaoModel GetOrderById(int OrderId);
+	public boolean UpdateOrderStatus(int OrderId);
 }

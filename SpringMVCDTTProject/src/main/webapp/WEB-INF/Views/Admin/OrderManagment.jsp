@@ -128,8 +128,7 @@
             
             <div class="modal fade" id="modalDel" role="dialog">
                 <div class="modal-dialog">
-                    <form action="SetStatusOrder" method="post">
-                        @csrf
+                    <form action="UpdateOrderStatus" method="post">
                     <!-- Modal content-->
                     <div class="modal-content">
                     <div class="modal-header">
@@ -189,7 +188,7 @@
                             var cmtTemplate = 
                                 '<div class="modal-body">' +
                                     '<div class="modal-body-left">' +
-                                    '<input id="OrderId" name="id" type="hidden" value="'+data.orderId+'" />' +
+                                    '<input id="OrderId" name="OrderId" type="hidden" value="'+data.orderId+'" />' +
                                         '<p>Tên người đặt</p>' +
                                         '<input type="text" placeholder="Tên người đặt" class="form-control my-3 p-4" value="'+data.name+'" disabled>' +
                                         '<p>SĐT người đặt</p>' +
