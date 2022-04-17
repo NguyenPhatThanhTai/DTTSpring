@@ -93,7 +93,7 @@ public class Service implements IService {
 		JBCRYPT jbCrypt = new JBCRYPT();
 		var user = _dataAccess.getUserOfEmail(Email);
 		
-		if(user != null) {
+		if(user != null && user.getStatus() != -1) {
 			return jbCrypt.checkpw(Password, user.getToken());
 		}
 		return false;
