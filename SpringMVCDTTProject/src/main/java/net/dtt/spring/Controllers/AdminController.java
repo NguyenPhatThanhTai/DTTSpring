@@ -230,6 +230,7 @@ public class AdminController {
 		 orderViewModel.setOrderId(order.getId());
 		 orderViewModel.setPhone(order.getPhoneReceive());
 		 orderViewModel.setStatus(order.getStatus());
+		 orderViewModel.setTotalrice(Float.toString(order.getTotalPrice()));
 		 
 		 List<DetailOrderViewModel> detailOrders = new ArrayList<DetailOrderViewModel>();
 		 

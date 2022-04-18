@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-         pageEncoding="utf-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DTT Store</title>
@@ -77,10 +76,10 @@
 			<input type="hidden" value="${user.id}" name="CustomerId">
 				<h4 class="mb-3">Địa chỉ thanh toán</h4>
 					<div class="row g-3">	
-						<div class="col-sm-6">
+						<div class="col-sm-12">
 							<label for="lastName" class="form-label">Tên</label> <input
 								type="text" class="form-control" id="lastName"
-								placeholder="Tên của bạn" value="${user.name}" required="" name="NameReceive">
+								placeholder="Tên của bạn" value="${user.name}" name="NameReceive">
 							<div class="invalid-feedback">Vui lòng nhập Tên của bạn.</div>
 						</div>
 	
@@ -92,9 +91,17 @@
 						</div>
 	
 						<div class="col-12">
-							<label for="address" class="form-label">Địa chỉ</label> <input
+							<label for="address" class="form-label">Địa chỉ chi tiết</label> <input
 								type="text" class="form-control" id="address"
 								placeholder="123/2 Võ Thị Sáu..." value="${user.address}" required="" name="AddressReceive">
+							<div class="invalid-feedback">Vui lòng nhập Địa chỉ của bạn.
+							</div>
+						</div>
+						
+						<div class="col-12">
+							<label for="address" class="form-label">Số điện thoại</label> <input
+								type="number" class="form-control" id="phone"
+								placeholder="123456789" value="${user.phone}" required="" name="PhoneReceive">
 							<div class="invalid-feedback">Vui lòng nhập Địa chỉ của bạn.
 							</div>
 						</div>

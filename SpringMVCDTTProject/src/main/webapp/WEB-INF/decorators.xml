@@ -6,6 +6,7 @@
 		<pattern>/Login</pattern>
 		<pattern>/Admin/Login</pattern>
 		<pattern>/Register</pattern>
+		<pattern>/Thankyou</pattern>
 	</decorator>
 	<decorator name="Admin">
 		<pattern>/Admin/*</pattern>

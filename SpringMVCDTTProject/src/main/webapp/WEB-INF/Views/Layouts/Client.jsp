@@ -11,6 +11,10 @@
 	href="<c:url value="/resources/CSS/header.css" />">
 <link rel="stylesheet"
 	href="<c:url value="/resources/CSS/footer.css" />">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+	integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 	<!-- header -->
@@ -60,14 +64,14 @@
 			<div class="bg-main">
 				<div class="mid-header container">
 					<a href="#" class="logo">DTT Store</a>
-					<div class="search">
-						<input type="text" placeholder="Search"> <i
-							class='bx bx-search-alt'></i>
-					</div>
+						<div class="search">
+							<input id="keywork" type="text" placeholder="Search" name="keywork"> 
+							<i id="search" class='bx bx-search-alt'></i>
+						</div>
 					<ul class="user-menu">
 						<li><a href="#"><i class='bx bx-bell'></i></a></li>
-						<li><a href="#"><i class='bx bx-user-circle'></i></a></li>
-						<li><a href="#"><i class='bx bx-cart'></i></a></li>
+						<li><a href="Profile"><i class='bx bx-user-circle'></i></a></li>
+						<li><a href="cart"><i class='bx bx-cart'></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -217,6 +221,13 @@
 			</div>
 		</div>
 	</footer>
+	<script>
+		$( document ).ready(function() {
+			$("#search").click(function(){
+				window.location.href = "Search?offset=1&keywork=" + $("#keywork").val();
+			});
+		});
+	</script>
 	<!-- end footer -->
 	<script src="<c:url value="/resources/JS/header.js" />"></script>
 </body>

@@ -50,4 +50,5 @@ public interface IService {
 	public List<OrdersDaoModel> GetAllOrder();
 	public OrdersDaoModel GetOrderById(int OrderId);
 	public boolean UpdateOrderStatus(int OrderId);
+	public List<ProductDaoModel> SearchProduct(int offset, String[] cateId, String Keywork);
 }

@@ -54,7 +54,7 @@ public class Service implements IService {
 
 	@Override
 	public List<ProductDaoModel> GetAllProduct(int offset, String[] cateId) {
-		return _dataAccess.GetProductByNumber(offset, 10, cateId);
+		return _dataAccess.GetProductByNumber(offset, 9, cateId);
 	}
 
 	@Override
@@ -263,6 +263,12 @@ public class Service implements IService {
 	@Override
 	public boolean UpdateOrderStatus(int OrderId) {
 		return _dataAccess.UpdateStatusOrder(OrderId);
+	}
+
+	@Override
+	public List<ProductDaoModel> SearchProduct(int offset, String[] cateId, String Keywork) {
+		// TODO Auto-generated method stub
+		return _dataAccess.SearchProduct(offset, 9, cateId, Keywork);
 	}
 }
 

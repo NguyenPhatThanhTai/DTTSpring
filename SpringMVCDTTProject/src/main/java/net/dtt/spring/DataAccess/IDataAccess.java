@@ -51,4 +51,6 @@ public interface IDataAccess {
 	public List<OrdersDaoModel> GetAllOrder();
 	public OrdersDaoModel GetOrderById(int OrderId);
 	public boolean UpdateStatusOrder(int OrderId);
+	public List<ProductDaoModel> SearchProduct(int offset, int amount, String[] cateId, String Keywork);
+	public int CountProductSearch(String Keywork);
 }

@@ -509,6 +509,43 @@ public class DataAccess implements IDataAccess {
 //			return false;
 //		}
 	}
+
+	@Override
+	public List<ProductDaoModel> SearchProduct(int offset, int amount, String[] cateId, String Keywork) {
+//		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			String query = "From ProductDaoModel P WHERE P.productDetail.status = 0";
+			
+			if(cateId != null && cateId.length == 1) {
+				query += " AND P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+			}
+			else if(cateId != null && cateId.length > 1) {
+				query += " AND P.category.id = " + Integer.parseInt(cateId[0].replaceAll("\\s+",""));
+				for (String idCate : cateId) {
+					query += " OR P.category.id = " + Integer.parseInt(idCate.replaceAll("\\s+",""));
+				}	
+			}
+			
+			query += " AND P.productDetail.name like '%" + Keywork + "%'";
+			
+			List<ProductDaoModel> productDao = session.createQuery(query).list();
+			
+			return productDao;
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			return null;
+//		}
+	}
+	
+	@Override
+	public int CountProductSearch(String Keywork) {
+		Session session = this.sessionFactory.getCurrentSession();
+
+		List<ProductDaoModel> list = session.createQuery("From ProductDaoModel P WHERE P.productDetail.name like %" + Keywork + "%").list();
+		
+	    return list.size();
+	}
 }
 
 

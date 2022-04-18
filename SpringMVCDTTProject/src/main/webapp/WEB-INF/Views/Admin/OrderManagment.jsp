@@ -32,14 +32,14 @@
 			<li>
 				<a href="#" class="active"><i class='bx bxs-inbox icon' ></i> Quản lý <i class='bx bx-chevron-right icon-right' ></i></a>
 				<ul class="side-dropdown">
-					<li><a href="./baloCRUD.html">Sản phẩm</a></li>
-					<li><a href="./categoryCRUD.html">Loại sản phẩm</a></li>
-					<li><a href="./manufactorCRUD.html">Nhà sản xuất</a></li>
-					<li><a id="Order" href="./orderCRUD.html">Đơn hàng</a></li>
+					<li><a href="/SpringMVCDTTpProject/Admin/">Sản phẩm</a></li>
+					<li><a href="CategoryManagment">Loại sản phẩm</a></li>
+					<li><a href="ManufactorManagment">Nhà sản xuất</a></li>
+					<li><a class="Order" href="OrderManagment">Đơn hàng</a></li>
 				</ul>
 			</li>
 			<li><a href="#"><i class='bx bxs-chart icon' ></i> Nhân sự</a></li>
-			<li><a href="#"><i class='bx bxs-widget icon' ></i> Khách hàng</a></li>
+			<li><a href="CustomerManagment"><i class='bx bxs-widget icon' ></i> Khách hàng</a></li>
 			<li class="divider" data-text="table and forms">Thống kê</li>
 			<li><a href="#"><i class='bx bx-table icon' ></i> Doanh thu</a></li>
 		</ul>
@@ -154,7 +154,7 @@
 <script>
 	$( document ).ready(function() {
 	    $('.side-dropdown').addClass('show');
-	    $('#Order').css("color", "red important");
+	    $('.Order').css("color", "red");
 	});
 
     function getInfoDetailOrder($orderId){

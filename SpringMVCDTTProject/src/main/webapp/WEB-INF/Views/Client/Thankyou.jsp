@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>DTT Store - Balo Shop</title>
@@ -56,7 +56,7 @@
     <div class="go-to-home">
         <p class="main-content__body" data-lead-id="main-content-body">Về trang chủ ngay</p>
         <button class="gohome" type="button">
-            <a href="/">
+            <a href="/SpringMVCDTTpProject/">
                 <p>TRANG CHỦ</p>
             </a>
         </button>

@@ -49,7 +49,7 @@
 												class="price" type="number"
 												value="${(item.price) * (item.number)}"></span>
 										</h3>
-										<input class="hiddenprice" type="hidden" value="300000">
+										<input class="hiddenprice" type="hidden" value="${(item.price)}">
 									</div>
 									<img src="${item.image}" alt="">
 								</div>
@@ -72,7 +72,7 @@
 						Tổng tiền <span id="totalPrice">0 VND</span>
 					</h3>
 					<button class="btn-flat btn-hover complete-cart">
-						<span>Đặt hàng</span>
+						<span><a href="order">Đặt hàng</a></span>
 					</button>
 				</div>
 			</div>
@@ -86,22 +86,34 @@
     	
         $('.btn-minus').click(function() {
             var $input = $(this).parent().find('#ascending');
-            
-            if(parseInt($input.val()) > 1){
-            	alert(parseInt($input.val()));
-            	minus(parseInt($(this).parent().find('#productId').val()));
-            }
+            var flagStop = false;
             
             var count = parseInt($input.val()) - 1;
-            count = count < 1 ? 1 : count;
-            $input.val(count);
-            $input.change();
-            var price_all_price = $(this).parent().find('.price');
-            var totalprice = parseInt(price_all_price.val())-parseInt($(this).parent().find('.hiddenprice').val());
-            price_all_price.val(totalprice < parseInt($(this).parent().find('.hiddenprice').val()) ? parseInt($(this).parent().find('.hiddenprice').val()) : totalprice);
-            price_all_price.change();
-            
-            calcuTotalPrice();
+            //count = count < 1 ? 1 : count;
+            if(count < 1){
+            	if (confirm('Bạn có muốn xóa món hàng này khỏi giỏ hàng?')){
+            		count = 0;
+            	}
+            	else{
+            		flagStop = true;
+            	}
+            }
+
+            if(!flagStop){
+                minus(parseInt($(this).parent().find('#productId').val()));	
+                
+                $input.val(count);
+                $input.change();
+                var price_all_price = $(this).parent().find('.price');
+                var totalprice = parseInt(price_all_price.val())-parseInt($(this).parent().find('.hiddenprice').val());
+                price_all_price.val(totalprice < parseInt($(this).parent().find('.hiddenprice').val()) ? parseInt($(this).parent().find('.hiddenprice').val()) : totalprice);
+                price_all_price.change();
+                
+                calcuTotalPrice();
+                if(count == 0){
+                	ocation.reload();
+                }
+            }
             return false;
         });
         $('.btn-plus').click(function() {

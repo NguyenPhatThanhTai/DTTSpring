@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import net.dtt.spring.Models.DAOModel.CommentProductDaoModel;
+import net.dtt.spring.Models.DAOModel.CustomerDaoModel;
 import net.dtt.spring.Models.DAOModel.ProductDetailDaoModel;
 import net.dtt.spring.Models.ViewModels.AddToCardRequestModel;
 import net.dtt.spring.Models.ViewModels.CheckOutCardRequestModel;
@@ -74,7 +75,7 @@ public class ClientController {
 	 public String AllProductPage(Model model, @RequestParam(value="offset") int offset, @RequestParam(value="cateid", required = false) String cateId) {
 		 
 		 //split page	 
-		 int total = 10;
+		 int total = 9;
 		 int current_page = offset;
 		 
 		 if(offset == 1) {}
@@ -92,13 +93,47 @@ public class ClientController {
 		 
 		 var CountProducts = AllProducts.size();
 		 double CountProductsCalculator = CountProducts / total;
-		 CountProducts = (int) (CountProductsCalculator + 2);
+		 CountProducts = (int) (CountProductsCalculator + current_page);
 		 
 		 model.addAttribute("all_product", AllProducts);
 		 model.addAttribute("count_product", CountProducts);
 		 model.addAttribute("current_page", current_page);
 		 model.addAttribute("all_category", AllCategory);
 		 model.addAttribute("current_cateid", cateId);
+		 
+		 return "/Client/AllProducts";
+	 }
+	 
+	 @RequestMapping(value = "/Search", method = RequestMethod.GET)
+	 public String SearchProduct(Model model, @RequestParam(value="offset") int offset, @RequestParam(value="keywork") String keywork, @RequestParam(value="cateid", required = false) String cateId) {
+		 
+		 //split page	 
+		 int total = 9;
+		 int current_page = offset;
+		 
+		 if(offset == 1) {}
+		 else {
+			 offset = (offset-1) * total + 1;
+		 }
+		 
+		 //filter
+		 String[] splitIdCateFilter = null;
+		 if(cateId != null) {
+			 splitIdCateFilter = cateId.split("-");
+		 }
+		 var AllProducts = _service.SearchProduct(offset, splitIdCateFilter, keywork);
+		 var AllCategory = _service.getAllCategory();
+		 
+		 var CountProducts = AllProducts.size();
+		 double CountProductsCalculator = CountProducts / total;
+		 CountProducts = (int) (CountProductsCalculator + current_page);
+		 
+		 model.addAttribute("all_product", AllProducts);
+		 model.addAttribute("count_product", CountProducts);
+		 model.addAttribute("current_page", current_page);
+		 model.addAttribute("all_category", AllCategory);
+		 model.addAttribute("current_cateid", cateId);
+		 model.addAttribute("search", keywork);
 		 
 		 return "/Client/AllProducts";
 	 }
@@ -179,11 +214,11 @@ public class ClientController {
 	 
 	 @RequestMapping(value = "/order", method = RequestMethod.GET)
 	 public String OrderPage(Model model, HttpServletRequest request, @CookieValue(name ="cart", required=false) String cartCookie) {
-		 var userInfo = request.getSession().getAttribute("User");
+		 CustomerDaoModel userInfo = (CustomerDaoModel) request.getSession().getAttribute("User");
 		 if(userInfo == null) {
 			 return "redirect:/Login";
 		 }
-		 
+		 System.out.println("=============== " + userInfo.getName());
 		 List<AddToCardRequestModel> cartInfo = new Gson().fromJson(cartCookie, new TypeToken<List<AddToCardRequestModel>>(){}.getType());
 		 
 		 if(cartInfo != null) {
@@ -215,7 +250,7 @@ public class ClientController {
 	 @RequestMapping(value = "/Login", method = RequestMethod.POST)
 	 public String LoginPagePost(Model model, HttpServletRequest request, @ModelAttribute("LoginRequest")LoginRequestModel user) {
 		 if(_service.CheckLogin(user.getEmail(), user.getPassword())){
-			 var userInfo = _service.GetUserByEmail(user.getEmail());
+			 CustomerDaoModel userInfo = _service.GetUserByEmail(user.getEmail());
 			 request.getSession().setAttribute("User", userInfo);
 			 return "redirect:/";
 		 }
@@ -265,10 +300,16 @@ public class ClientController {
 	 public String CheckOut(Model model, HttpServletRequest request, @ModelAttribute("CheckOut")CheckOutCardRequestModel cart) {
 		 if(_service.CheckOutCard(cart.getProductId(), cart.getQuantity(), cart.getNameReceive(), 
 				 cart.getPhoneReceive(), cart.getAddressReceive() + ", " + cart.getDistrict() + ", " + cart.getCity().split("-")[1], cart.getNote(), 1, Float.parseFloat(cart.getTotalPrice()), Integer.parseInt(cart.getCustomerId()))) {
-			 return "/Client/Thankyou";
+			 return "redirect:/Thankyou";
 		 }
 		 
 		 return "/Client/order";
+	 }
+	 
+	 @RequestMapping(value = "/Thankyou", method = RequestMethod.GET)
+	 public String ThankYouPage(Model model, HttpServletRequest request) {
+		 
+		 return "/Client/Thankyou";
 	 }
 }
 

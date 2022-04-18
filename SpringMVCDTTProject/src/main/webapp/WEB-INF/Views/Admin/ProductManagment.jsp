@@ -33,15 +33,15 @@
 			<li><a href="#" class="active"><i class='bx bxs-inbox icon'></i>
 					Quản lý <i class='bx bx-chevron-right icon-right'></i></a>
 				<ul class="side-dropdown">
-					<li><a href="#">Sản phẩm</a></li>
-					<li><a href="#">Loại sản phẩm</a></li>
-					<li><a href="#">Nhà sản xuất</a></li>
-					<li><a href="#">Đơn hàng</a></li>
+					<li><a class="Product" href="/SpringMVCDTTpProject/Admin/">Sản phẩm</a></li>
+					<li><a href="CategoryManagment">Loại sản phẩm</a></li>
+					<li><a href="ManufactorManagment">Nhà sản xuất</a></li>
+					<li><a href="OrderManagment">Đơn hàng</a></li>
 				</ul></li>
 			<li><a href="#"><i class='bx bxs-chart icon'></i> Nhân sự</a></li>
-			<li><a href="#"><i class='bx bxs-widget icon'></i> Khách
+			<li><a href="CustomerManagment"><i class='bx bxs-widget icon'></i> Khách
 					hàng</a></li>
-			<li class="divider" data-text="table and forms">Thống kê</li>
+			<li class="divider" data-text="Kế toán">Thống kê</li>
 			<li><a href="#"><i class='bx bx-table icon'></i> Doanh thu</a></li>
 		</ul>
 	</section>
@@ -254,7 +254,12 @@
 	</section>
 	<!-- NAVBAR -->
 	<script>
+	$( document ).ready(function() {
+	    $('.side-dropdown').addClass('show');
+	    $('.Product').css("color", "red");
+	});
 	function getProduct(prodId){
+		
 		$("#updateContent").html("");
 			$.ajax({
 				  type: 'GET',

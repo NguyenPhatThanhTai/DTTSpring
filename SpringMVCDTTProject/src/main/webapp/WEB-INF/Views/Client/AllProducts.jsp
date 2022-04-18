@@ -225,7 +225,7 @@
 														<i class='bx bxs-heart'></i>
 													</button>
 												</div>
-												<div class="product-card-name">${item.id}</div>
+												<div class="product-card-name">${item.productDetail.name}</div>
 												<div class="product-card-price">
 													<span><del>${item.productDetail.price + (item.productDetail.price)/2}</del></span>
 													<span class="curr-price">${item.productDetail.price}</span>
@@ -238,18 +238,13 @@
 						</div>
 						<div class="box">
 							<ul class="pagination">
-								<li><a href="../All-Products?offset=${loop.index -1}"><i
+								<li><a href="All-Products?offset=${loop.index -1}"><i
 										class='bx bxs-chevron-left'></i></a></li>
 								<c:forEach begin="1" end="${count_product}" varStatus="loop">
-									<li><a href="../All-Products?offset=${loop.index}"
+									<li><a href="All-Products?offset=${loop.index}"
 										class="${loop.index == current_page ? "active" : ""}">${loop.index}</a></li>
 								</c:forEach>
-								<!-- <li><a href="#" class="active">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li> -->
-								<li><a href="../All-Products?offset=${loop.index + 1}"><i
+								<li><a href="All-Products?offset=${loop.index + 1}"><i
 										class='bx bxs-chevron-right'></i></a></li>
 							</ul>
 						</div>
@@ -269,8 +264,14 @@
 		             checkedValue += checkbox[i].value + "-";
 		        }
 		  	}
+		    urlAssign = "All-Products?offset=1";
+		    keyWork = "";
 		    
-		    var urlAssign = "All-Products?offset=1";
+			if('${search}' != null){
+				urlAssign = "Search?offset=1&keywork= " + keyWork;
+				keyWork = '${search}';
+			}
+			
 		    if(checkedValue != ""){
 		    	urlAssign += '&cateid= ' + checkedValue;
 		    }
@@ -280,11 +281,13 @@
        window.onload = function()
        {
 		    var rememberFilter = '${current_cateid}';
-		    const listRememberFilter = rememberFilter.split("-");
-		    
-		    for(var i=0; i < listRememberFilter.length; i++){
-		    	var id = "remember" + listRememberFilter[i].replace(/\s+/g, '');
-		    	document.getElementById(id).checked = true;
+		    if(rememberFilter != null){
+			    const listRememberFilter = rememberFilter.split("-");
+			    
+			    for(var i=0; i < listRememberFilter.length; i++){
+			    	var id = "remember" + listRememberFilter[i].replace(/\s+/g, '');
+			    	document.getElementById(id).checked = true;
+			    }
 		    }
        };
 
