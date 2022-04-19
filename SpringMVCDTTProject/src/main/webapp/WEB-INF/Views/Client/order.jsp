@@ -86,7 +86,7 @@
 						<div class="col-12">
 							<label for="email" class="form-label">Email</label> <input
 								type="email" class="form-control" id="email"
-								placeholder="you@example.com" value="${user.email}" name="EmailReceive">
+								placeholder="you@example.com" value="${user.email}" name="EmailReceive" disabled>
 							<div class="invalid-feedback">Vui lòng nhập Email của bạn.</div>
 						</div>
 	

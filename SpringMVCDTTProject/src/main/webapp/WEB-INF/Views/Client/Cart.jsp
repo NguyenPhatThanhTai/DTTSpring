@@ -111,7 +111,7 @@
                 
                 calcuTotalPrice();
                 if(count == 0){
-                	ocation.reload();
+                	location.reload();
                 }
             }
             return false;

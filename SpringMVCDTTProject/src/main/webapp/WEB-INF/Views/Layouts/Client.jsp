@@ -21,7 +21,7 @@
 	<header>
 		<!-- mobile menu -->
 		<div class="mobile-menu bg-second">
-			<a href="#" class="mb-logo">DTT Store</a> <span
+			<a href="/SpringMVCDTTpProject/" class="mb-logo">DTT Store</a> <span
 				class="mb-menu-toggle" id="mb-menu-toggle"> <i
 				class='bx bx-menu'></i>
 			</span>
@@ -63,7 +63,7 @@
 			<!-- mid header -->
 			<div class="bg-main">
 				<div class="mid-header container">
-					<a href="#" class="logo">DTT Store</a>
+					<a href="/SpringMVCDTTpProject/" class="logo">DTT Store</a>
 						<div class="search">
 							<input id="keywork" type="text" placeholder="Search" name="keywork"> 
 							<i id="search" class='bx bx-search-alt'></i>

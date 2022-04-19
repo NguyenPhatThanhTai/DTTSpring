@@ -219,7 +219,10 @@
 														class="btn-flat btn-hover btn-shop-now"><a
 														href="Detail-Product/${item.id}">xem ngay</a></a>
 													<button class="btn-flat btn-hover btn-cart-add">
-														<i class='bx bxs-cart-add'></i>
+														<a
+															onclick="addToCart(${item.id}, ${item.productDetail.price }, '${item.productDetail.img_Cover}', '${item.productDetail.name}')"><i
+															class='bx bxs-cart-add'></i>
+														</a>
 													</button>
 													<button class="btn-flat btn-hover btn-cart-add">
 														<i class='bx bxs-heart'></i>
@@ -254,6 +257,34 @@
 		</div>
 	</div>
 	<!-- end products content -->
+	<script>
+		function addToCart(ProductId, Price, Img, Name){
+			$.ajax({
+				  type: 'POST',
+				  contentType : 'application/json; charset=utf-8',
+				  dataType : 'json',
+				  data: JSON.stringify({ 
+			        "productId": ProductId, 
+			        "number": 1,
+			        "action": 0,
+			        "price": Price,
+			        "image": Img,
+			        "name": Name
+			      }),
+				  url: 'addToCartJson',
+				  complete: function (data) {
+					  data = JSON.parse(data.responseText);
+					  
+					  if(data.isSuccess){
+						 alert("Đã thêm vào giỏ hàng tạm thời!");
+					  }
+					  else{
+						  alert("Thêm vào giỏ hàng thất bại!");
+					  }
+				  }
+			});	
+		}
+	</script>
 	<script type="text/javascript">
 	    function FilterCate(id){
 	    	var checkedValue = "";

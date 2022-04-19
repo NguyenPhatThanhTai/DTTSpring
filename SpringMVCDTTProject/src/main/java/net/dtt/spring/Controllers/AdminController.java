@@ -250,9 +250,12 @@ public class AdminController {
 	 
 	 @RequestMapping(value = "/UpdateOrderStatus", method = RequestMethod.POST)
 	 public String UpdateOrderStatus(Model model, HttpServletRequest request, @RequestParam("OrderId") int OrderId) {
+		 var order = _service.GetOrderById(OrderId);
+		 
+		 System.out.println("================= " + order.getCustomer().getEmail());
 		 
 		 MailDTO mail = new MailDTO();
-		 mail.sendMail("nguyenphatthanhtai@gmail.com", "Test", _service.GetOrderById(OrderId));
+		 mail.sendMail(order.getCustomer().getEmail(), "Xin thông báo đến quý khách hàng " + order.getNameReceive(), order);
 		 
 		 if(_service.UpdateOrderStatus(OrderId))
 			 model.addAttribute("alert", "Cập nhật thành công");
